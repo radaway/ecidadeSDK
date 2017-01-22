@@ -12,6 +12,7 @@ foreach ( $Grupos->getGroups() as $Group ) {
 $Form = new HtmlForm('Build');
 $Form->addHead( "Nova Build" );
 $Form->addSelect( "grupo", "Grupo de Projeto", $select );
+$Form->addSelect( "projeto", "Projeto", array( 'selecione'=>'Selecione' ) );
 $Form->addText( "nome", "Nome" );
 echo $Form->print();
  ?>
