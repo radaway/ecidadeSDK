@@ -8,7 +8,7 @@ Class GitLabGroups {
   }
 
   public function getGroups(){
-    $url = $this->Config->GitUrl . "/api/v3/groups/";
+    $url = "http://" . $this->Config->GitUrl . "/api/v3/groups/";
     $url .= "?private_token=" . $this->Config->GitKey;
     $retorno = file_get_contents( $url );
     if ( $retorno === false ) {
@@ -18,7 +18,7 @@ Class GitLabGroups {
   }
 
   public function getProjects( $group ){
-    $url = $this->Config->GitUrl . "/api/v3/groups/";
+    $url = "http://" . $this->Config->GitUrl . "/api/v3/groups/";
     $url .= $group . "/?private_token=" . $this->Config->GitKey;
     $retorno = file_get_contents( $url );
     if ( $retorno === false ) {

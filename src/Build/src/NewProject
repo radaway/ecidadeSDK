@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+$Projeto = trim( $argv[1] );
+if ( $Projeto == "" ){
+  throw new Exception("Não foi informado projeto!", 1);
+}
+
+$Diretorio = trim ( $argv[2] );
+if ( $Diretorio == "" ){
+  throw new Exception("Não foi informado diretorio de destino!", 1);
+}
+
+$Versao = trim( $argv[3] );
+if ( $Versao == "" ){
+  throw new Exception("Não foi Informado Versao", 1);
+}
+
+$Tags = trim( $argv[4] );
+
+if ( $Tags == "" ){
+  $Tags = array();
+} else {
+  $Tags = explode( ',', $Tags );
+}
+
+$ProjectsAvailable = array( "Ecidade", "EcidadeOnline", "EcidadeOnline2", "PortalDoAluno", "Transparencia", "MatriculaOnline", "EcidadeNiteroi", "PortalDoServidor" );
+if ( ! in_array( $Projeto, $ProjectsAvailable ) ){
+  throw new Exception("Projeto " . $Projeto . " Inválido!", 1);
+}
+
+require_once __DIR__ . '/class/' . $Projeto . 'Project.class.php';
+$ClassName = $Projeto . "Project";
+$Project = new $ClassName( $Diretorio );
+$Project->buildVersion( $Versao );
+if ( ! empty( $Tags ) ){
+  $Project->checkoutTag( $Tags );
+}
+$Project->init();
+?>
