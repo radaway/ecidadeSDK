@@ -17,19 +17,27 @@ Class HtmlForm{
 
   private function initForm(){
     if ( $this->Html != null ){return true;}
-    $this->Html = '<div class="container" align="center"><div class="col-' . $this->Size . '">';
+    $this->Html = '<div class="container" align="center">
+    <div class="col-' . $this->Size . '">
+    ';
     $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
-    $this->Html .= '" style="display: none;"></div>';
-    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '">';
+    $this->Html .= '" style="display: none;"></div>
+    ';
+    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '">
+    ';
     return true;
   }
 
   private function getLabel( $Label, $Size = 3 ){
-    return '<label for="example-text-input" class="col-' . $Size . ' col-form-label">' . $Label . '</label>';
+    return '<label for="example-text-input" class="col-' . $Size . ' col-form-label">' . $Label . '</label>
+    ';
   }
 
   private function getInputBase( $BaseType, $Name, $Size = 6 ){
-    return '<div class="col-' . $Size . '"><input class="form-control" type="' . $BaseType . '" name="' . $Name . '"></div>';
+    return '<div class="col-' . $Size . '">
+    <input class="form-control" type="' . $BaseType . '" name="' . $Name . '" id="' . $Name . '" />
+    </div>
+    ';
   }
 
   private function getSelectBase( $Name, $Values, $Size = 6, $Multiple = false ){
@@ -37,28 +45,43 @@ Class HtmlForm{
     if ( $Multiple ){
       $Mult = " multiple ";
     }
-    $Retorno = '<div class="col-' . $Size . '">';
-    $Retorno .= '<select' . $Mult . 'class="form-control" name="' . $Name . '">';
+    $Retorno = '<div class="col-' . $Size . '">
+    ';
+    $Retorno .= '<select' . $Mult . 'class="form-control" name="' . $Name . '" id="' . $Name . '">
+    ';
     foreach ($Values as $key => $value) {
-      $Retorno .= '<option value="' . $key . '">' . $value . '</option>';
+      $Retorno .= '<option value="' . $key . '">' . $value . '</option>
+      ';
     }
-    $Retorno .= '</select></div>';
+    $Retorno .= '</select>
+    </div>
+    ';
     return $Retorno;
   }
 
   private function getDivBase(){
-    return '<div class="form-group row">';
+    return '<div class="form-group row">
+    ';
   }
 
   public function addHead( $Titulo ){
     if ( $this->Html != null ){return true;}
     $this->Head = true;
-    $this->Html = '<div class="container" align="center"><div class="col-' . $this->Size . '">';
+    $this->Html = '<div class="container" align="center">
+    <div class="col-' . $this->Size . '">
+    ';
     $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
-    $this->Html .= '" style="display: none;"></div>';
-    $this->Html .= '<div class="card card-default"><div class="card-header">';
-    $this->Html .= '<strong>' . $Titulo . '</strong></div><div class="card-body">';
-    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '"><br />';
+    $this->Html .= '" style="display: none;"></div>
+    ';
+    $this->Html .= '<div class="card card-default">
+    <div class="card-header">
+    ';
+    $this->Html .= '<strong>' . $Titulo . '</strong>
+    </div>
+    <div class="card-body">
+    ';
+    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '"><br />
+    ';
   }
 
   public function addText( $Name, $Label ){
@@ -66,7 +89,8 @@ Class HtmlForm{
     $this->Html .= $this->getDivBase();
     $this->Html .= $this->getLabel( $Label );
     $this->Html .= $this->getInputBase( 'text', $Name );
-    $this->Html .= '</div>';
+    $this->Html .= '</div>
+    ';
   }
 
   public function addSelect( $Name, $Label, $Values ){
@@ -74,7 +98,8 @@ Class HtmlForm{
     $this->Html .= $this->getDivBase();
     $this->Html .= $this->getLabel( $Label );
     $this->Html .= $this->getSelectBase( $Name, $Values );
-    $this->Html .= '</div>';
+    $this->Html .= '</div>
+    ';
   }
 
   public function addButton( $Name, $Label ){

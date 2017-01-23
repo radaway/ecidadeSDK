@@ -16,3 +16,26 @@ $Form->addSelect( "projeto", "Projeto", array( 'selecione'=>'Selecione' ) );
 $Form->addText( "nome", "Nome" );
 echo $Form->print();
  ?>
+
+ <script type="text/javascript">
+ $("#grupo").on("change",function() {
+   if ($("#grupo").val() != "selecione") {
+     var grupo = $("#grupo").val();
+     var action = "getProjects";
+     $("#grupo").attr("disabled", true);
+     $("#projeto").attr("disabled", true);
+     $.ajax({
+       data: {grupo: grupo, action: action},
+       type: 'POST',
+       url: "ambientes/ambientes_RPC.php",
+       success: function (html) {
+         $("#projeto").html(html);
+         $("#grupo").removeAttr("disabled", "disabled");
+         $("#projeto").removeAttr("disabled", "disabled");
+       }
+     });
+   } else {
+     $("#projeto").html("<option value='selecione'>Selecione</option>");
+   }
+ });
+ </script>
