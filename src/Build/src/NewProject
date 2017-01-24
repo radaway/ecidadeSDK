@@ -23,7 +23,7 @@ if ( $Tags == "" ){
   $Tags = explode( ',', $Tags );
 }
 
-$ProjectsAvailable = array( "Ecidade", "EcidadeOnline", "EcidadeOnline2", "PortalDoAluno", "Transparencia", "MatriculaOnline", "EcidadeNiteroi", "PortalDoServidor" );
+$ProjectsAvailable = array( "Ecidade", "EcidadeOnline", "EcidadeOnline2", "PortalDoAluno", "Transparencia", "MatriculaOnline", "PortalDoServidor" );
 if ( ! in_array( $Projeto, $ProjectsAvailable ) ){
   throw new Exception("Projeto " . $Projeto . " Inválido!", 1);
 }

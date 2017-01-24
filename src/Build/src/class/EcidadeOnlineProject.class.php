@@ -17,26 +17,24 @@ Class EcidadeOnlineProject implements Project{
 
   public function buildVersion( $Versao ){
     try {
-      $ServerName = "releases";
-      if ( gethostname() == "jenkins" ){
-        $ServerName = "jenkins";
-      }
       FileTools::rmDIr( $this->Path );
       FileTools::checkDir( $this->Path );
-      $cmd = self::RSYNC_BIN . " -r -t --exclude='tmp/*' -s rsync://" . $ServerName . ".dbseller.com.br/memcache/e-cidade/" . $Versao . "/e-cidadeonline/* " . $this->Path . "/";
-        echo "Executando:" . $cmd . "\n";
+      $Config = new GitLabConfig();
+      $cmd = self::GIT_BIN . " clone http://infra.libresolucoes:halegria@" . $Config->GitUrl . "/e-cidadeonline/" . $Versao.".git " . $this->Path;
+      echo "Executando:" . $cmd . "\n";
+      Bash::exec( $cmd );
+    } catch (Exception $e) {
+      throw $e;
+    }
+    }
+
+    public function checkoutTag( $Tags ){
+      $cmd = self::GIT_BIN . " checkout " . $Tag;
+      try {
         Bash::exec( $cmd );
       } catch (Exception $e) {
         throw $e;
       }
-    }
-
-    public function checkoutTag( $Tags ){
-      if ( ! is_array( $Tags ) ){
-        $Tags = array( trim( $Tags ) );
-      }
-      $cvs = new CvsCheckout( "cvs.dbseller.com.br:2401/home/cvs", "dbintegracao", "halegria" );
-      $cvs->GetFilesByTags( "dbpref", $this->Path, $Tags );
     }
 
 
