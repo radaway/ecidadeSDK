@@ -31,6 +31,15 @@ class NewBuild{
   private function newBuild(){
     $erro = true;
     $msg = "";
+
+    if( $_POST['grupo'] == 'selecione' ){
+      $msg = "Informe grupo de projeto!";
+    }
+
+    if( $_POST['projeto'] == 'selecione' ){
+      $msg = "Informe projeto!";
+    }
+
     return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
   }
 

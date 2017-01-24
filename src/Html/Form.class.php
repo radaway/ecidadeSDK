@@ -25,7 +25,7 @@ Class HtmlForm{
     $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
     $this->Html .= '" style="display: none;"></div>
     ';
-    $this->Html .= '<form name="formName' . $this->Name . '" id="form_' . $this->Name . '">
+    $this->Html .= '<form name="form_' . $this->Name . '" id="form_' . $this->Name . '">
     ';
     return true;
   }
@@ -79,7 +79,7 @@ function formSubmit' . $this->Name . '( Ctrl, Method, Button ){
     $("#return_html_' . $this->Name .'").html(\'Carregando...\');
   	$("#return_html_' . $this->Name .'").removeAttr("style", "display:none;").fadeIn();
     var crt = { ctrl: Ctrl, method: Method };
-    var formData = $("#formName' . $this->Name . '").serialize() + "&" + $.param(crt);
+    var formData = $("#form_' . $this->Name . '").serialize() + "&" + $.param(crt);
     $.ajax({
 	     url: \'' . $_SERVER['REQUEST_URI'] . '\',
 	     data: formData,
