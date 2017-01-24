@@ -1,0 +1,6 @@
+<?php
+Class GitLabConfig extends stdClass{
+  public $GitUrl = "";
+  public $GitKey = "";
+}
+?>
