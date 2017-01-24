@@ -26,7 +26,8 @@ class Route{
         return false;
       }
     }
-    echo "bugou" . strlen($urlRequest) . $urlRequest;
+    echo "bugou" . strlen($urlRequest) . $urlRequest ;
+    print_r(pathinfo($_SERVER['SCRIPT_NAME']));
   }
 }
 
