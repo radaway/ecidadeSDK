@@ -15,7 +15,9 @@ class Route{
   public function get(){
     $urlRequest = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
     $PathInfo = pathinfo($_SERVER['SCRIPT_NAME']);
-    $urlRequest = str_replace( $PathInfo['dirname'], '', $urlRequest );
+    if( strlen( $PathInfo['dirname'] ) > 1 ){
+        $urlRequest = str_replace( $PathInfo['dirname'], '', $urlRequest );
+    }    
     if( strlen( $urlRequest ) > 1 ){
         $urlRequest = rtrim($urlRequest, '/');
     }
