@@ -1,0 +1,7 @@
+<?php
+class JenkisConfig extends stdClass{
+  public $JenkinsHost = "";
+  public $JenkinsUser = "";
+  public $JenkinsPort = "";
+}
+?>

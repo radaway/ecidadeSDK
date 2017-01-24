@@ -14,6 +14,11 @@ class Route{
 
   public function get(){
     $urlRequest = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
+    $PathInfo = pathinfo($_SERVER['SCRIPT_NAME']);
+    $urlRequest = str_replace( $PathInfo['dirname'], '', $urlRequest );
+    if( strlen( $urlRequest ) > 1 ){
+        $urlRequest = rtrim($urlRequest, '/');
+    }
     foreach ($this->_url as $key => $value) {
       if( preg_match("#\d*$value$#", $urlRequest) ){
         require_once __DIR__ . '/' . $this->_method[$key] . '/'. $this->_method[$key] .'.php';
@@ -21,7 +26,7 @@ class Route{
         return false;
       }
     }
-    echo "bugou";
+    echo "bugou" . strlen($urlRequest) . $urlRequest;
   }
 }
 

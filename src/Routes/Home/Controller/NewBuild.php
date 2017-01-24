@@ -6,6 +6,9 @@ class NewBuild{
       case 'getProjects':
         echo $this->getProjects( $_POST['grupo'] );
         break;
+      case 'NewBuild':
+        echo $this->newBuild();
+        break;
       default:
         # code...
         break;
@@ -24,5 +27,12 @@ class NewBuild{
     }
     return $retorno;
   }
+
+  private function newBuild(){
+    $erro = true;
+    $msg = "";
+    return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
+  }
+
 }
 ?>

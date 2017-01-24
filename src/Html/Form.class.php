@@ -6,6 +6,7 @@ Class HtmlForm{
   private $Titulo;
   private $Size;
   private $Head;
+  private $Script;
 
   public function __construct( $Name, $Size = 8 ){
     $this->Html = null;
@@ -13,17 +14,18 @@ Class HtmlForm{
     $this->Titulo = null;
     $this->Size = $Size;
     $this->Head = false;
+    $this->Script = "";
   }
 
   private function initForm(){
     if ( $this->Html != null ){return true;}
     $this->Html = '<div class="container" align="center">
-    <div class="col-' . $this->Size . '">
+    <br /><div class="col-' . $this->Size . '">
     ';
     $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
     $this->Html .= '" style="display: none;"></div>
     ';
-    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '">
+    $this->Html .= '<form name="formName' . $this->Name . '" id="form_' . $this->Name . '">
     ';
     return true;
   }
@@ -64,15 +66,42 @@ Class HtmlForm{
     ';
   }
 
+  public function addSubmit( $Value, $Controller, $Method){
+    $this->Html .= $this->getDivBase();
+    $this->Html .= '<div class="col-8">
+    <button class="btn btn-secondary" type="button" onclick="javascript:formSubmit' . $this->Name . '( \'' . $Controller . '\', \'' . $Method . '\', this );">
+      <span class="fa fa-refresh" aria-hidden="true"></span> ' . $Value . ' </button>
+    </div></div>
+    ';
+    $this->Script .= '<script type="text/javascript">
+function formSubmit' . $this->Name . '( Ctrl, Method, Button ){
+    $(Button).attr("disabled","disabled");
+    $("#return_html_' . $this->Name .'").html(\'Carregando...\');
+  	$("#return_html_' . $this->Name .'").removeAttr("style", "display:none;").fadeIn();
+    var crt = { ctrl: Ctrl, method: Method };
+    var formData = $("#formName' . $this->Name . '").serialize() + "&" + $.param(crt);
+    $.ajax({
+	     url: \'' . $_SERVER['REQUEST_URI'] . '\',
+	     data: formData,
+	     type: \'POST\',
+	     dataType: \'json\',
+	     success: function(data) {
+		      $("#return_html_' . $this->Name .'").html(data.msg);
+		      $("#return_html_' . $this->Name .'").delay(10000).fadeOut();
+          $(Button).removeAttr("disabled","disabled");
+	     }
+});
+}
+</script>';
+  }
+
   public function addHead( $Titulo ){
     if ( $this->Html != null ){return true;}
     $this->Head = true;
     $this->Html = '<div class="container" align="center">
-    <div class="col-' . $this->Size . '">
+    <br /><div class="col-' . $this->Size . '">
     ';
-    $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
-    $this->Html .= '" style="display: none;"></div>
-    ';
+
     $this->Html .= '<div class="card card-default">
     <div class="card-header">
     ';
@@ -80,7 +109,10 @@ Class HtmlForm{
     </div>
     <div class="card-body">
     ';
-    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '"><br />
+    $this->Html .= '<br /><div class="alert alert-info" id="return_html_' . $this->Name;
+    $this->Html .= '" style="display: none;"></div>
+    ';
+    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '">
     ';
   }
 
@@ -212,7 +244,7 @@ Class HtmlForm{
       $this->Html .= '</div>';
     }
     $this->Html .= '</form></div>';
-    return $this->Html;
+    return $this->Html . $this->Script;
   }
 
 }

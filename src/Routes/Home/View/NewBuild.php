@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../GitLab/class/Groups.class.php';
 class NewBuild{
 
   public function __construct( $func ){
-    echo $this->$func();
+    echo $this->$func();    
   }
 
   private function new(){
@@ -21,6 +21,7 @@ class NewBuild{
     $Form->addSelect( "grupo", "Grupo de Projeto", $select );
     $Form->addSelect( "projeto", "Projeto", array( 'selecione'=>'Selecione' ) );
     $Form->addText( "nome", "Nome" );
+    $Form->addSubmit( "Gerar", "NewBuild", "NewBuild" );
     $retorno = $Form->print();
     $script = '<script type="text/javascript">
     $("#grupo").on("change",function() {
