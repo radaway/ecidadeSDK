@@ -35,10 +35,10 @@ Class MatriculaOnlineProject implements Project{
   public function init(){
 
     try {
-      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sUser[ \s]*=[ \s].*', '$sUser = "infra@dbseller.com.br";' );
-      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sPass[ \s]*=[ \s].*', '$sPass = "";' );
-      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sHost[ \s]*=[ \s].*', '$sHost = "smtp.dbseller.com.br";' );
-      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sPort[ \s]*=[ \s].*', '$sPort = "25";' );
+      FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sUser[ \s]*=[ \s].*', '$sUser = "infra@dbseller.com.br";' );
+      FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sPass[ \s]*=[ \s].*', '$sPass = "";' );
+      FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sHost[ \s]*=[ \s].*', '$sHost = "smtp.dbseller.com.br";' );
+      FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sPort[ \s]*=[ \s].*', '$sPort = "25";' );
     } catch (Exception $e) {
       throw $e;
     }
@@ -47,9 +47,9 @@ Class MatriculaOnlineProject implements Project{
       throw new Exception("Falhou ao inicializar libs/db_conn.php.dist", 1);
     }
 
-    if ( ! copy( $this->Path . "/libs/config.mail.php.dist", $this->Path . "/libs/config.mail.php" ) ){
-      throw new Exception("Falhou ao inicializar libs/config.mail.php", 1);
-    }
+    ///if ( ! copy( $this->Path . "/libs/config.mail.php.dist", $this->Path . "/libs/config.mail.php" ) ){
+      //throw new Exception("Falhou ao inicializar libs/config.mail.php", 1);
+    //}
 
     if ( is_file( $this->Path . "/composer.json" ) ){
       $saveDir = getcwd();
