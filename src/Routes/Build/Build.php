@@ -51,7 +51,8 @@ class Build{
           });
         </script>
       </body>
-    </html>';    
+    </html>';
+    return $html;    
   }
 
 }
