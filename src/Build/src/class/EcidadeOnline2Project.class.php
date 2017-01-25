@@ -90,13 +90,11 @@ Class EcidadeOnline2Project implements Project{
     }
   }
 
-  public function checkoutTag( $Tags ){
-    $cmd = self::GIT_BIN . " checkout " . $Tag;
-    try {
-      Bash::exec( $cmd );
-    } catch (Exception $e) {
-      throw $e;
-    }
+  public function checkoutTag( $Tag ){
+    $saveDir = getcwd();
+    chdir( $this->Path );
+    exec( self::GIT_BIN . " checkout " . $Tag );
+    chdir( $saveDir );
   }
 
 
