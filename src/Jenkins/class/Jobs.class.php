@@ -3,30 +3,34 @@ require_once __DIR__ . '/../config/config.php';
 class Jobs{
 
   private $JobName;
-  private $Parameters = array();
+  private $Parametes = array();
 
   public function __construct( $JobName ){
     $this->JobName = $JobName;
+    $Config = new JenkinsConfig();
+    if ( ! is_file( __DIR__ . '/../jenkins-cli.jar' ) ){
+      if ( ! file_put_contents( __DIR__ . '/../jenkins-cli.jar', file_get_contents( 'http://' . $Config->JenkinsHost . '/jnlpJars/jenkins-cli.jar' ) ) ){
+        throw new Exception("Não encontrou jenkins-cli.jar!");
+      }
+    }
   }
 
   public function addParameter( $Key, $Value){
     $Key = trim( $Key );
-    $this->Parameters[$Key] = $Value;
+    $this->Parametes[$Key] = $Value;
   }
 
   public function build(){
     $Config = new JenkinsConfig();
-    $url = 'http://' . $Config->JenkinsHost . '/job/' . $this->JobName . '/buildWithParameters';
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->Parameters));
-    // $output contains the output string
-    $output = curl_exec($ch);
-    // close curl resource to free up system resources
-    curl_close($ch);
-    return $output;
+    $cmd = 'java -jar '. __DIR__ . '/../jenkins-cli.jar -s ';
+    $cmd .= 'http://' . $Config->JenkinsHost . ' build ' . $this->JobName;
+    $cmd .= ' --username ' . $Config->JenkinsUser . ' --password "' . $Config->JenkinsKey . '" ';
+
+    foreach ($this->Parametes as $key => $value) {
+      $cmd .= ' -p ' . $key . '="' . $value . '"';
+    }
+    exec($cmd, $out);
+    return $out;
   }
 }
 ?>

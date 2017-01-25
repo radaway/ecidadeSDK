@@ -47,8 +47,7 @@ class NewBuild{
       return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
     }
 
-    $job = new Jobs( "nova_build" );
-    $job->addParameter( "token", "teste" );
+    $job = new Jobs( "nova_build" );    
     $job->addParameter( "GRUPO", $_POST['grupo'] );
     $job->addParameter( "PROJETO", $_POST['projeto'] );
     $job->addParameter( "NOME", $_POST['nome'] );

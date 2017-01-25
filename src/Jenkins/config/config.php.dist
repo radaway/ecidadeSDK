@@ -1,5 +1,5 @@
 <?php
-class JenkisConfig extends stdClass{
+class JenkinsConfig extends stdClass{
   public $JenkinsHost = "";
   public $JenkinsUser = "";
   public $JenkinsKey = "";

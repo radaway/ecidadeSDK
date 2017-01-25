@@ -1,2 +1,3 @@
 src/GitLab/config/config.php
 src/Jenkins/config/config.php
+src/Jenkins/jenkins-cli.jar
