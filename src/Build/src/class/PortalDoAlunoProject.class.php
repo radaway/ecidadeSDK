@@ -33,7 +33,7 @@ Class PortalDoAlunoProject implements Project{
     FileTools::strReplace( $this->Path . "/app/config/bootstrap.php", 'Configure::write("Email.remetente",.*', 'Configure::write("Email.remetente", "' . $Config->SmtpUser . '");' );
     FileTools::strReplace( $this->Path . "/app/config/bootstrap.php", "'port'[ \s]*=>[ \s].*", "'port' => '" . $Config->SmtpPort . "'," );
     $Host = $Config->SmtpHost;
-    if ( $Config->SSL ){
+    if ( $Config->SmtpSSL ){
       $Host = "ssl://" . $Host;
     }
     FileTools::strReplace( $this->Path . "/app/config/bootstrap.php", "'host'[ \s]*=>[ \s].*", "'host' => '" . $Host . "'," );

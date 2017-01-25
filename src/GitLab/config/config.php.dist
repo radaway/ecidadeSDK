@@ -2,7 +2,6 @@
 Class GitLabConfig extends stdClass{
   public $GitUrl = "";
   public $GitKey = "";
-  public $GitUser = "";
-  public $gitPass = "";
+  public $GitUser = "";  
 }
 ?>
