@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../interface/Project.interface.php';
 require_once __DIR__  . '/FileTools.class.php';
 require_once __DIR__  . '/Bash.class.php';
-require_once __DIR__  . '/CvsCheckout.class.php';
+require_once __DIR__ . '/../../../GitLab/config/config.php';
 Class EcidadeOnlineProject implements Project{
 
   const COMPOSER_BIN = "/usr/local/bin/composer";
