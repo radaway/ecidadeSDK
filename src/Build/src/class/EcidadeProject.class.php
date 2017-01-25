@@ -55,7 +55,7 @@ Class EcidadeProject implements Project{
     if( ! copy( $this->Path . "/integracao_externa/debitos/lib/debitos.conf.dist", $this->Path . "/integracao_externa/debitos/lib/debitos.conf" ) ){
       throw new Exception("Falhou ao inicializar integracao_externa/debitos/lib/debitos.conf", 1);
     }
-    if( ! copy( $this->Path . "/integracao_externa/ged/libs/configuracao_ged.ini", $this->Path . "/integracao_externa/ged/libs/configuracao_ged.ini" ) ){
+    if( ! copy( $this->Path . "/integracao_externa/ged/libs/configuracao_ged.ini.dist", $this->Path . "/integracao_externa/ged/libs/configuracao_ged.ini" ) ){
       throw new Exception("Falhou ao inicializar integracao_externa/ged/libs/configuracao_ged.ini", 1);
     }
   }
