@@ -46,7 +46,7 @@ Class EcidadeProject implements Project{
     if( ! copy( $this->Path . "/integracao_externa/portal_transparencia/libs/db_config.ini.dist", $this->Path . "/integracao_externa/portal_transparencia/libs/db_config.ini" ) ){
       throw new Exception("Falhou ao inicializar integracao_externa/portal_transparencia/libs/db_config.ini", 1);
     }
-    if( ! copy( $this->Path . "/integracao_externa/portal_transparencia/libs/config.ini.dist", $this->Path . "/integracao_externa/portal_transparencia/libs/config.ini.dist" ) ){
+    if( ! copy( $this->Path . "/integracao_externa/portal_transparencia/libs/config.ini.dist", $this->Path . "/integracao_externa/portal_transparencia/libs/config.ini" ) ){
       throw new Exception("Falhou ao inicializar integracao_externa/portal_transparencia/libs/config.ini", 1);
     }
     if( ! copy( $this->Path . "/integracao_externa/gissonline/lib/db_config.ini.dist", $this->Path . "/integracao_externa/gissonline/lib/db_config.ini" ) ){
