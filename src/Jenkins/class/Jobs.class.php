@@ -29,8 +29,10 @@ class Jobs{
     foreach ($this->Parametes as $key => $value) {
       $cmd .= ' -p ' . $key . '="' . $value . '"';
     }
-    if ( ! exec($cmd, $out) ){
-      throw new Exception("Falha na requisição", 1);
+    if ( ! exec($cmd, $out, $erro) ){
+      if ( $erro > 0 ){
+          throw new Exception("Falha na requisição", 1);
+      }      
     }
     return true;
   }
