@@ -89,7 +89,7 @@ Class EcidadeOnline2Project implements Project{
       }
     }
 
-    if ( ! copy( $this->Path . "/public/webservice/wsdlValidations/homologacao/modelo1.wsdl.dist", $this->Path . "/public/webservice/wsdlValidations/homologacao/modelo1.wsdl.dist" ) ){
+    if ( ! copy( $this->Path . "/public/webservice/wsdlValidations/homologacao/modelo1.wsdl.dist", $this->Path . "/public/webservice/wsdlValidations/homologacao/modelo1.wsdl" ) ){
       throw new Exception("Falhou ao inicializar public/webservice/wsdlValidations/homologacao/modelo1.wsdl", 1);
     }
 
