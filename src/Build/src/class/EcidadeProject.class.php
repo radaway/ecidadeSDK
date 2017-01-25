@@ -83,7 +83,7 @@ Class EcidadeProject implements Project{
       FileTools::rmDIr( $this->Path );
       FileTools::checkDir( $this->Path );
       $Config = new GitLabConfig();
-      echo " ------------------ CLONANDO --------------------";
+      echo " ------------------ CLONANDO --------------------\n";
       $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/e-cidade/" . $Versao.".git " . $this->Path;
       Bash::exec( $cmd );
     } catch (Exception $e) {
