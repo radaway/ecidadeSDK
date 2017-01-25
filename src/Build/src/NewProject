@@ -2,38 +2,57 @@
 <?php
 $Projeto = trim( $argv[1] );
 if ( $Projeto == "" ){
-  throw new Exception("Não foi informado projeto!", 1);
+  echo "-----------------------------------------------------------------";
+  echo "------------- INFORME PROJETO | 1º PARAMETRO --------------------";
+  echo "-----------------------------------------------------------------";
+  exit(2);
+}
+
+$ProjectsAvailable = array( "Ecidade", "EcidadeOnline", "EcidadeOnline2", "PortalDoAluno", "Transparencia", "MatriculaOnline", "PortalDoServidor" );
+if ( ! in_array( $Projeto, $ProjectsAvailable ) ){
+  echo "-----------------------------------------------------------------";
+  echo "------------------------ PROJETO INVÁLIDO -----------------------";
+  echo "-----------------------------------------------------------------";
+  exit(2);
 }
 
 $Diretorio = trim ( $argv[2] );
 if ( $Diretorio == "" ){
-  throw new Exception("Não foi informado diretorio de destino!", 1);
+  echo "-----------------------------------------------------------------";
+  echo "------------- INFORME DIRETORIO | 2º PARAMETRO ------------------";
+  echo "-----------------------------------------------------------------";
+  exit(2);
 }
 
 $Versao = trim( $argv[3] );
 if ( $Versao == "" ){
-  throw new Exception("Não foi Informado Versao", 1);
+  echo "-----------------------------------------------------------------";
+  echo "-------------- INFORME VERSAO | 3º PARAMETRO --------------------";
+  echo "-----------------------------------------------------------------";
+  exit(2);
 }
 
 $Tags = trim( $argv[4] );
-
 if ( $Tags == "" ){
   $Tags = array();
 } else {
   $Tags = explode( ',', $Tags );
 }
 
-$ProjectsAvailable = array( "Ecidade", "EcidadeOnline", "EcidadeOnline2", "PortalDoAluno", "Transparencia", "MatriculaOnline", "PortalDoServidor" );
-if ( ! in_array( $Projeto, $ProjectsAvailable ) ){
-  throw new Exception("Projeto " . $Projeto . " Inválido!", 1);
+try {
+  require_once __DIR__ . '/class/' . $Projeto . 'Project.class.php';
+  $ClassName = $Projeto . "Project";
+  $Project = new $ClassName( $Diretorio );
+  $Project->buildVersion( $Versao );
+  if ( ! empty( $Tags ) ){
+    $Project->checkoutTag( $Tags );
+  }
+  $Project->init();
+} catch (Exception $e) {
+  echo "-----------------------------------------------------------------";
+  echo $e->getMeassge();
+  echo "-----------------------------------------------------------------";
+  exit(2);
 }
-
-require_once __DIR__ . '/class/' . $Projeto . 'Project.class.php';
-$ClassName = $Projeto . "Project";
-$Project = new $ClassName( $Diretorio );
-$Project->buildVersion( $Versao );
-if ( ! empty( $Tags ) ){
-  $Project->checkoutTag( $Tags );
-}
-$Project->init();
+exit(0);
 ?>

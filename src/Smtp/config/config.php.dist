@@ -1,0 +1,9 @@
+<?php
+Class SmtpConfig extends stdClass{
+  public $SmtpHost = "";
+  public $SmtpPort = "25";
+  public $SmtpUser = "";
+  public $SmtpPass = "";
+  public $SmtpSSL = false;
+}
+?>
