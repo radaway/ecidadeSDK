@@ -3,6 +3,7 @@ require_once __DIR__ . '/../interface/Project.interface.php';
 require_once __DIR__  . '/FileTools.class.php';
 require_once __DIR__  . '/Bash.class.php';
 require_once __DIR__ . '/../../../GitLab/config/config.php';
+require_once __DIR__ . '/../../../Smtp/config/config.php';
 Class EcidadeOnlineProject implements Project{
 
   const COMPOSER_BIN = "/usr/local/bin/composer";
@@ -24,7 +25,7 @@ Class EcidadeOnlineProject implements Project{
     }
   }
   private function parseConfigDefault(){
-    $Config = new GitLabConfig();
+    $Config = new SmtpConfig();
     FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sHost[ \s]*=[ \s].*;', '$sHost = "' . $Config->SmtpHost. '";' );
     FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sPort[ \s]*=[ \s].*;', '$sPort = "' . $Config->SmtpPort . '";' );
     FileTools::strReplace( $this->Path . "/libs/config.mail.php", '$sUser[ \s]*=[ \s].*;', '$sUser = "' . $Config->SmtpUser . '";' );
@@ -70,7 +71,7 @@ Class EcidadeOnlineProject implements Project{
       $this->iniFolder();
     } catch (Exception $e) {
       throw $e;
-    }   
+    }
 
     if ( is_file( $this->Path . "/composer.json" ) ){
       $saveDir = getcwd();
