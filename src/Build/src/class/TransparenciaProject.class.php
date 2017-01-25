@@ -15,25 +15,7 @@ Class TransparenciaProject implements Project{
     $this->Path = $Path;
   }
 
-  public function buildVersion( $Versao ){
-    try {
-      FileTools::rmDIr( $this->Path );
-      FileTools::checkDir( $this->Path );
-      $Config = new GitLabConfig();
-      $cmd = self::GIT_BIN . " clone http://infra.libresolucoes:halegria@" . $Config->GitUrl . "/transparencia/" . $Versao.".git " . $this->Path;
-      echo "Executando:" . $cmd . "\n";
-      Bash::exec( $cmd );
-    } catch (Exception $e) {
-      throw $e;
-    }
-  }
-
-  public function checkoutTag( $Tags ){
-  }
-
-
-  public function init(){
-
+  private function distInitialize(){
     if ( ! copy( $this->Path . "/app/config/database.php.dist", $this->Path . "/app/config/database.php" ) ){
       throw new Exception("Falhou ao inicializar app/config/database.php", 1);
     }
@@ -43,6 +25,41 @@ Class TransparenciaProject implements Project{
         throw new Exception("Falhou ao inicializar app/config/routes.php", 1);
       }
     }
+  }
+  private function parseConfigDefault(){
+    return true;
+  }
+
+  public function buildVersion( $Versao ){
+    try {
+      FileTools::rmDIr( $this->Path );
+      FileTools::checkDir( $this->Path );
+      $Config = new GitLabConfig();
+      echo " ------------------ CLONANDO --------------------\n";
+      $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/transparencia/" . $Versao.".git " . $this->Path;
+      Bash::exec( $cmd );
+    } catch (Exception $e) {
+      throw $e;
+    }
+  }
+
+  public function checkoutTag( $Tag ){
+    $saveDir = getcwd();
+    chdir( $this->Path );
+    exec( self::GIT_BIN . " checkout " . $Tag );
+    chdir( $saveDir );
+  }
+
+
+  public function init(){
+
+    try {
+      $this->distInitialize();
+      $this->parseConfigDefault();
+    } catch (Exception $e) {
+      throw $e;
+    }
+
 
     if ( is_file( $this->Path . "/composer.json" ) ){
       $saveDir = getcwd();
