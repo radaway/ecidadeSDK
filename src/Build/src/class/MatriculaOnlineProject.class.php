@@ -5,9 +5,9 @@ require_once __DIR__  . '/Bash.class.php';
 require_once __DIR__  . '/CvsCheckout.class.php';
 Class MatriculaOnlineProject implements Project{
 
-  const RSYNC_BIN = "/usr/bin/rsync";
-
   const COMPOSER_BIN = "/usr/local/bin/composer";
+
+  const GIT_BIN = "/usr/bin/git";
 
   private $Path = null;
 
@@ -17,13 +17,10 @@ Class MatriculaOnlineProject implements Project{
 
   public function buildVersion( $Versao ){
     try {
-      $ServerName = "releases";
-      if ( gethostname() == "jenkins" ){
-        $ServerName = "jenkins";
-      }
       FileTools::rmDIr( $this->Path );
       FileTools::checkDir( $this->Path );
-      $cmd = self::RSYNC_BIN . " -r -t -s rsync://" . $ServerName . ".dbseller.com.br/memcache/matriculaonline/" . $Versao . "/matricula_online.completo/* " . $this->Path . "/";
+      $Config = new GitLabConfig();
+      $cmd = self::GIT_BIN . " clone http://infra.libresolucoes:halegria@" . $Config->GitUrl . "/matriculaonline/" . $Versao.".git " . $this->Path;
       echo "Executando:" . $cmd . "\n";
       Bash::exec( $cmd );
     } catch (Exception $e) {
@@ -31,12 +28,7 @@ Class MatriculaOnlineProject implements Project{
     }
   }
 
-  public function checkoutTag( $Tags ){
-    if ( ! is_array( $Tags ) ){
-      $Tags = array( trim( $Tags ) );
-    }
-    $cvs = new CvsCheckout( "cvs.dbseller.com.br:2401/home/cvs", "dbintegracao", "halegria" );
-    $cvs->GetFilesByTags( "matricula_online", $this->Path, $Tags );
+  public function checkoutTag( $Tags ){    
   }
 
 
@@ -46,7 +38,7 @@ Class MatriculaOnlineProject implements Project{
       FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sUser[ \s]*=[ \s].*', '$sUser = "infra@dbseller.com.br";' );
       FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sPass[ \s]*=[ \s].*', '$sPass = "";' );
       FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sHost[ \s]*=[ \s].*', '$sHost = "smtp.dbseller.com.br";' );
-      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sPort[ \s]*=[ \s].*', '$sPort = "25";' ); 
+      FileTools::strReplace( $this->Path . "/libs/config.mail.php.dist", '$sPort[ \s]*=[ \s].*', '$sPort = "25";' );
     } catch (Exception $e) {
       throw $e;
     }

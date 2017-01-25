@@ -42,17 +42,49 @@ class NewBuild{
       $msg = "Informe projeto!";
       return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
     }
+
     if( trim( $_POST['nome'] ) == '' ){
       $msg = "Informe nome para build!";
       return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
     }
 
-    $job = new Jobs( "nova_build" );    
-    $job->addParameter( "GRUPO", $_POST['grupo'] );
-    $job->addParameter( "PROJETO", $_POST['projeto'] );
-    $job->addParameter( "NOME", $_POST['nome'] );
-    $msg = $job->build();
+    switch ($_POST['grupo']) {
+      case 'e-cidade':
+        $grupo = "Ecidade";
+        break;
+      case 'e-cidadeonline':
+        $grupo = "EcidadeOnline";
+        break;
+      case 'e-cidadeonline2':
+        $grupo = "EcidadeOnline2";
+        break;
+      case 'matriculaonline':
+        $grupo = "MatriculaOnline";
+        break;
+      case 'portaldoaluno':
+        $grupo = "PortalDoAluno";
+        break;
+      case 'transparencia':
+        $grupo = "Transparencia";
+        break;
+      default:
+        $msg = "Grupo de Projeto inválido!";
+        return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
+        break;
+    }
 
+    try {
+      $job = new Jobs( "nova_build" );
+      $job->addParameter( "GRUPO", $grupo );
+      $job->addParameter( "PROJETO", $_POST['projeto'] );
+      $job->addParameter( "NOME", $_POST['nome'] );
+      $msg = $job->build();
+    } catch (Exception $e) {
+      $msg = $e->getMessage();
+      return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
+    }
+    $erro = false;
+    $msg = "Solicitação de build enviada";
     return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
   }
 

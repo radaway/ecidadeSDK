@@ -5,9 +5,9 @@ require_once __DIR__  . '/Bash.class.php';
 require_once __DIR__  . '/CvsCheckout.class.php';
 Class TransparenciaProject implements Project{
 
-  const RSYNC_BIN = "/usr/bin/rsync";
-
   const COMPOSER_BIN = "/usr/local/bin/composer";
+
+  const GIT_BIN = "/usr/bin/git";
 
   private $Path = null;
 
@@ -17,13 +17,10 @@ Class TransparenciaProject implements Project{
 
   public function buildVersion( $Versao ){
     try {
-      $ServerName = "releases";
-      if ( gethostname() == "jenkins" ){
-        $ServerName = "jenkins";
-      }
       FileTools::rmDIr( $this->Path );
       FileTools::checkDir( $this->Path );
-      $cmd = self::RSYNC_BIN . " -r -t -s rsync://" . $ServerName . ".dbseller.com.br/memcache/transparencia/" . $Versao . "/ecidade_transparencia.completo/* " . $this->Path . "/";
+      $Config = new GitLabConfig();
+      $cmd = self::GIT_BIN . " clone http://infra.libresolucoes:halegria@" . $Config->GitUrl . "/transparencia/" . $Versao.".git " . $this->Path;
       echo "Executando:" . $cmd . "\n";
       Bash::exec( $cmd );
     } catch (Exception $e) {
@@ -32,11 +29,6 @@ Class TransparenciaProject implements Project{
   }
 
   public function checkoutTag( $Tags ){
-    if ( ! is_array( $Tags ) ){
-      $Tags = array( trim( $Tags ) );
-    }
-    $cvs = new CvsCheckout( "cvs.dbseller.com.br:2401/home/cvs", "dbintegracao", "halegria" );
-    $cvs->GetFilesByTags( "ecidade_transparencia", $this->Path, $Tags );
   }
 
 

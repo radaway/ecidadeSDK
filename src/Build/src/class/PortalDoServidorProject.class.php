@@ -13,7 +13,7 @@ Class PortalDoServidorProject implements Project{
 
   function __construct( $Path ){
     $this->Path = $Path;
-  }  
+  }
 
   public function buildVersion( $Versao ){
     try {
