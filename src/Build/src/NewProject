@@ -32,11 +32,13 @@ if ( $Versao == "" ){
   exit(2);
 }
 
-$Tags = trim( $argv[4] );
-if ( $Tags == "" ){
-  $Tags = array();
-} else {
-  $Tags = explode( ',', $Tags );
+if ( isset( $argv[4] ) ){
+  $Tags = trim( $argv[4] );
+  if ( $Tags == "" ){
+    $Tags = array();
+  } else {
+    $Tags = explode( ',', $Tags );
+  }
 }
 
 try {
