@@ -34,7 +34,7 @@ class BuildInfo{
         ' . $value . '</a>
         </h4 >
         </div><div id="' . $value . '" class="panel-collapse collapse">
-        <div class="card-body">' . $value . '</div></div></div>';
+        <div class="card-body">' . $value . '</div></div></div><br />';
       }
       $html .= '</div></div>';
       $script = '<script type="text/javascript">
