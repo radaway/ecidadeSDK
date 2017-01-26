@@ -2,8 +2,9 @@
 
 class BuildManager{
 
-  public function __construct(){
-    return phpinf();
+  public function __construct( $buildName ){
+    $lsDir = array_diff( scandir( '/var/www/builds/' . $buildName), array( '.', '..' ) );
+    print_r($lsDir);   
   }
 
 }

@@ -9,7 +9,7 @@ class ListBuild{
   }
 
   private function List(){
-    $table = new SimpleTable();
+    $table = new SimpleTable( 'Table' );
     $table->addHead( array( 'Build', 'Acessar' ) );
     $lsDir = array_diff( scandir( '/var/www/builds' ), array( '.', '..' ) );
     foreach ($lsDir as $value) {
