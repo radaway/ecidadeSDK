@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__.'/../../Ssh/class/Ssh.class.php';
-require_once __DIR__.'/../../Ssh/config/config.php';
+require_once __DIR__ . '/../../Ssh/class/Ssh.class.php';
+require_once __DIR__ . '/../../Ssh/config/config.php';
 
 Class Docker{
 
