@@ -2,9 +2,9 @@
 require_once __DIR__ . '/../../Ssh/class/Ssh.class.php';
 require_once __DIR__ . '/../../Ssh/config/config.php';
 
-Class Docker{
+class Docker{
 
-  public static function status( $port ){
+  public function status( $port ){
     $Config = new SshConfig();
     $ssh = new Ssh( $Config->SshHost, $Config->SshPort, $Config->SshUser, $Config->SshPass );
     $cmd = "docker ps | grep '0.0.0.0:" . $port . "' | awk '{print \$1}' | head -n 1";
@@ -29,7 +29,7 @@ Class Docker{
     return false;
   }
 
-  public static function start( $docker, $dir, $port ){
+  public function start( $docker, $dir, $port ){
     $Config = new SshConfig();
     $ssh = new Ssh( $Config->SshHost, $Config->SshPort, $Config->SshUser, $Config->SshPass );
 
@@ -81,7 +81,7 @@ Class Docker{
     return false;
   }
 
-  public static function stop( $port ){
+  public function stop( $port ){
     $Config = new SshConfig();
     $ssh = new Ssh( $Config->SshHost, $Config->SshPort, $Config->SshUser, $Config->SshPass );
 

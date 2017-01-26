@@ -4,12 +4,12 @@ class Ssh{
 	public $out;
 	public $err;
 	//construtor default
-	function __construct($host, $porta, $user, $senha){
+	public function __construct($host, $porta, $user, $senha){
 		$this->session = ssh2_connect($host, $porta);
 		ssh2_auth_password($this->session, $user, $senha);
 	}
 
-	function exec($comando){
+	public function exec($comando){
 		if ($stream = ssh2_exec($this->session, $comando)){
 			$errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
 
