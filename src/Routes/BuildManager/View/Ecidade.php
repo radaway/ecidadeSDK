@@ -9,7 +9,7 @@ class Ecidade{
 
   private function getInfo(){
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf');
-    return 'http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort;
+    return '<br/>http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '<br/>';
   }
 }
 
