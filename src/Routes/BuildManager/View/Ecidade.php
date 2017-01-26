@@ -20,7 +20,7 @@ class Ecidade{
      <i class="fa fa-stop"></i> Stop
      </button>
      <button type="button" class="btn btn-success" onclick="javascript:DockerStart(\'' . $this->buildName . '\', \'apache_ecidade\', \'' . $dockerPort . '\')">
-    <i class="glyphicon glyphicon-play"></i> Start
+    <i class="fa fa-play"></i> Start
   </button>';
       $table->addline( array( 'docker', $dockerButtons ) );
     return $table->print();
