@@ -33,11 +33,12 @@ class BuildInfo{
         <a data-toggle="collapse" data-parent="#accordion" href="#' . $value . '" class="">
         ' . $value . '</a>
         </h4
-        </div>div id="' . $value . '" class="panel-collapse collapse">
+        </div><div id="' . $value . '" class="panel-collapse collapse">
         <div class="card-body">' . $value . '</div></div></div>';
       }
       $html .= '</div></div>';
-      $script = '$(function () {
+      $script = '<script type="text/javascript">
+      $(function () {
                     $(\'a[data-toggle="collapse"]\').on(\'click\',function(){
 
 				var objectID=$(this).attr(\'href\');
@@ -72,7 +73,8 @@ class BuildInfo{
                         });
                     });
 
-		});';
+		});
+    </script>';
       return $html . $script;
 
     }
