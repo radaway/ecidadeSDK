@@ -27,11 +27,11 @@ class Ecidade{
   </button>';
       $table->addline( array( 'docker', $dockerButtons ) );
       $script = '<script type="text/javascript">
-      function EcidadeDocker( func ){
+      function EcidadeDocker( Method ){
         $("#Ecidade_retorno").html(\'Carregando...\');
       	$("#Ecidade_retorno").removeAttr("style", "display:none;").fadeIn();
         $.ajax({
-          data: {ctrl: \'Ecidade\', method: func },
+          data: {ctrl: \'Ecidade\', method: Method },
           type: "POST",
           url: "' . $_SERVER['REQUEST_URI'] . '",
           success: function (html) {
