@@ -29,7 +29,10 @@ class BuildInfo{
         $html .= '<div class="card card-default">
         <div class="card-header">
         ';
-        $html .= '<strong>' . $value . '</strong>
+        $html .= '<h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#' . $value . '" class="">
+        ' . $value . '</a>
+        </h4
         </div>
         <div class="card-body"></div></div>';
       }
