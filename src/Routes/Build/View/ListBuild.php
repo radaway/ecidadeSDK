@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../../Html/SimpleTable.class.php';
 require_once __DIR__ . '/../../../GitLab/class/Groups.class.php';
 
-class NewBuild{
+class ListBuild{
 
   public function __construct( $func ){
     echo $this->$func();
