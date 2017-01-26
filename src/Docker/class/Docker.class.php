@@ -4,6 +4,10 @@ require_once __DIR__ . '/../../Ssh/config/config.php';
 
 class Docker{
 
+  public function __construct(){
+
+  }
+
   public function status( $port ){
     $Config = new SshConfig();
     $ssh = new Ssh( $Config->SshHost, $Config->SshPort, $Config->SshUser, $Config->SshPass );
@@ -120,6 +124,5 @@ class Docker{
     }
     return false;
   }
-
 }
 ?>
