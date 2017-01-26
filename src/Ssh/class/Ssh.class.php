@@ -21,17 +21,17 @@ class Ssh{
 
 			// Whichever of the two below commands is listed first will receive its appropriate output.  The second command receives nothing
 			$this->out = trim( stream_get_contents( $stream ) );
-      $this->err = trim( stream_get_contents( $errorStream ) );
+			$this->err = trim( stream_get_contents( $errorStream ) );
 
-        	// Close the streams
+			// Close the streams
 			fclose($errorStream);
 			fclose($stream);
 
-        	if($this->err == ""){
-        		return true;
-        	} else {
-        		return false;
-        	}
+			if($this->err == ""){
+				return true;
+			} else {
+				return false;
+			}
 		}else{
 			$this->out = "Falhou ao executar comando";
 			$this->err = "Falhou ao executar comando";

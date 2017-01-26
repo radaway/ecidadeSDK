@@ -35,7 +35,7 @@ class Ecidade{
           type: "POST",
           url: "' . $_SERVER['REQUEST_URI'] . '",
           success: function (html) {
-            $("#Ecidade_retorno").html(data.msg);
+            $("#Ecidade_retorno").html(html);
   		      $("#Ecidade_retorno").delay(10000).fadeOut();
           }
         });
