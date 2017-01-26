@@ -34,7 +34,7 @@ class BuildManager{
         <div style="width: 98%;" class="container" id="exibicao" align="center"></div>
         <script type="text/javascript">
           function LoadView(View, Method){
-            $("#exibicao").html("<br /><div align=\"center\">Carregando!!!</div>");
+            $("#exibicao").html("<br /><div align="center">Carregando!!!</div>");
             $.ajax({
               data: {view: View, method: Method},
               type: "POST",
