@@ -37,7 +37,43 @@ class BuildInfo{
         <div class="card-body">' . $value . '</div></div></div>';
       }
       $html .= '</div></div>';
-      return $html;
+      $script = '$(function () {
+                    $(\'a[data-toggle="collapse"]\').on(\'click\',function(){
+
+				var objectID=$(this).attr(\'href\');
+
+				if($(objectID).hasClass(\'in\'))
+				{
+                                    $(objectID).collapse(\'hide\');
+				}
+
+				else{
+                                    $(objectID).collapse(\'show\');
+				}
+                    });
+
+
+                    $(\'#expandAll\').on(\'click\',function(){
+
+                        $(\'a[data-toggle="collapse"]\').each(function(){
+                            var objectID=$(this).attr(\'href\');
+                            if($(objectID).hasClass(\'in\')===false)
+                            {
+                                 $(objectID).collapse(\'show\');
+                            }
+                        });
+                    });
+
+                    $(\'#collapseAll\').on(\'click\',function(){
+
+                        $(\'a[data-toggle="collapse"]\').each(function(){
+                            var objectID=$(this).attr(\'href\');
+                            $(objectID).collapse(\'hide\');
+                        });
+                    });
+
+		});';
+      return $html . $script;
 
     }
 
