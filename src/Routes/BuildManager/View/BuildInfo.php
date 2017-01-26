@@ -32,7 +32,7 @@ class BuildInfo{
         $html .= '<h4 class="card-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#' . $value . '" class="">
         ' . $value . '</a>
-        </h4
+        </h4 >
         </div><div id="' . $value . '" class="panel-collapse collapse">
         <div class="card-body">' . $value . '</div></div></div>';
       }
