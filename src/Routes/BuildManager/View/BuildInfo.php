@@ -45,12 +45,25 @@ class BuildInfo{
           $(objectID).collapse(\'hide\');
 				}else{
           $(objectID).collapse(\'show\');
+          LoadInfo( \'objectID.substr(1)\', \'getInfo\', objectID );
 				}
         });
 		  });
+    </script>
+    <script type="text/javascript">
+      function LoadInfo(View, Method, objectID){
+        $(objectID).html("<br /><div align=\"center\">Carregando!!!</div>");
+        $.ajax({
+          data: {view: View, method: Method},
+          type: "POST",
+     		  url: "' . $_SERVER['REQUEST_URI'] . '",
+     		  success: function(html){
+     		     $(objectID).html(html);
+     		  }
+     		});
+      }
     </script>';
       return $html . $script;
-
     }
 
 }
