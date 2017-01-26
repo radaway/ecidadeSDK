@@ -10,20 +10,39 @@ class Ecidade{
   private function getInfo(){
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf');
     $dockerPort = trim( $dockerPort );
+
+    $base = '<div class="alert alert-info" id="Ecidade_retorno" style="display: none;"></div>';
+
     $table = new SimpleTable( 'Table' );
     $table->addHead( array( 'Serviço', 'Acesso' ) );
     $table->addline( array( 'e-cidade', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '</a>' ) );
     $table->addline( array( 'git', 'git clone http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git ' . $this->buildName ) );
     $table->addline( array( 'ssh', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh</a>' ) );
 
-    $dockerButtons = '<button type="button" class="btn btn-danger" onclick="javascript:DockerStop(' . $dockerPort . ')">
+    $dockerButtons = '<button type="button" class="btn btn-danger" onclick="javascript:EcidadeDocker(\'dockerStop\')">
      <i class="fa fa-stop"></i> Stop
      </button>
-     <button type="button" class="btn btn-success" onclick="javascript:DockerStart(\'' . $this->buildName . '\', \'apache_ecidade\', \'' . $dockerPort . '\')">
+     <button type="button" class="btn btn-success" onclick="javascript:EcidadeDocker(\'dockerStart\')">
     <i class="fa fa-play"></i> Start
   </button>';
       $table->addline( array( 'docker', $dockerButtons ) );
-    return $table->print();
+      $script = '<script type="text/javascript">
+      function EcidadeDocker( func ){
+        $("#Ecidade_retorno").html(\'Carregando...\');
+      	$("#Ecidade_retorno").removeAttr("style", "display:none;").fadeIn();
+        $.ajax({
+          data: {ctrl: \'Ecidade\', method: func },
+          type: "POST",
+          url: "' . $_SERVER['REQUEST_URI'] . '",
+          success: function (html) {
+            $("#Ecidade_retorno").html(data.msg);
+  		      $("#Ecidade_retorno").delay(10000).fadeOut();
+          }
+        });
+      }
+      ';
+
+    return $base . $table->print() . $script;
 
   }
 }
