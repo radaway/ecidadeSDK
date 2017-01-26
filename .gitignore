@@ -1,4 +1,5 @@
 src/GitLab/config/config.php
 src/Jenkins/config/config.php
 src/Smtp/config/config.php
+src/Ssh/config/config.php
 src/Jenkins/jenkins-cli.jar

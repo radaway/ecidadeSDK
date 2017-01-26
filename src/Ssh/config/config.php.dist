@@ -1,0 +1,8 @@
+<?php
+Class SshConfig extends stdClass{
+  public $SshHost = "";
+  public $SshPort = "22";
+  public $SshUser = "";
+  public $SshPass = "";  
+}
+?>
