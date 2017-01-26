@@ -45,7 +45,7 @@ class BuildInfo{
           $(objectID).collapse(\'hide\');
 				}else{
           $(objectID).collapse(\'show\');
-          LoadInfo( \'objectID.substr(1)\', \'getInfo\', objectID );
+          LoadInfo( objectID.substr(1), \'getInfo\', objectID );
 				}
         });
 		  });
