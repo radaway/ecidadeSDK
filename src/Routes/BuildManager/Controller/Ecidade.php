@@ -7,18 +7,7 @@ class Ecidade{
 
   public function __construct( $buildName, $Method ){
     $this->buildName = $buildName;
-    switch ($Method) {
-      case 'dockerStop':
-        echo $this->dockerStop();
-        break;
-      case 'dockerStart':
-        echo $this->dockerStart();
-        break;
-      default:
-        echo "bugou";
-        break;
-    }
-    echo "nenhum";
+    echo $this->$Method();       
   }
 
   private function dockerStop(){
