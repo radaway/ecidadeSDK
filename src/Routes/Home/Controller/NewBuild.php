@@ -72,12 +72,13 @@ class NewBuild{
         return json_encode( array( 'erro' => $erro, 'msg' => $msg ) );
         break;
     }
+    $nome = preg_replace('/[^A-Za-z0-9]/', '', $_POST['nome']);
 
     try {
       $job = new Jobs( "nova_build" );
       $job->addParameter( "GRUPO", $grupo );
       $job->addParameter( "PROJETO", $_POST['projeto'] );
-      $job->addParameter( "NOME", $_POST['nome'] );
+      $job->addParameter( "NOME", $nome );
       $msg = $job->build();
     } catch (Exception $e) {
       $msg = $e->getMessage();

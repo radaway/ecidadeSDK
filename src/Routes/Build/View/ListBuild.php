@@ -13,9 +13,18 @@ class ListBuild{
     $table->addHead( array( 'Build', 'Acessar' ) );
     $lsDir = array_diff( scandir( '/var/www/builds' ), array( '.', '..' ) );
     foreach ($lsDir as $value) {
-      $table->addLine( array( $value, $value ) );
+      $button = '<button type="button" class="btn btn-default btn-xs" onclick="javascript:openTab(\'' $value '\')">
+				<span class="fa fa-new-window"></span> ' . $value . ' </button>';
+      $table->addLine( array( $value, $button ) );
     }
-    return $table->print();
+
+    $script = '<script type="text/javascript">
+function openTab(url){
+  window.open(url,\'_blank\');
+}
+</script>';
+
+    return $table->print() . $script;
   }
 
 }
