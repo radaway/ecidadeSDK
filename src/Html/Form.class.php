@@ -70,7 +70,7 @@ Class HtmlForm{
     $this->Html .= $this->getDivBase();
     $this->Html .= '<div class="col-8">
     <button class="btn btn-secondary" type="button" onclick="javascript:formSubmit' . $this->Name . '( \'' . $Controller . '\', \'' . $Method . '\', this );">
-      <span class="fa fa-refresh" aria-hidden="true"></span> ' . $Value . ' </button>
+      <span class="fa fa-check" aria-hidden="true"></span> ' . $Value . ' </button>
     </div></div>
     ';
     $this->Script .= '<script type="text/javascript">
