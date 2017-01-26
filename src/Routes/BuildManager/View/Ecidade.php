@@ -19,7 +19,7 @@ class Ecidade{
     $table->addline( array( 'git', 'git clone http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git ' . $this->buildName ) );
     $table->addline( array( 'ssh', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh</a>' ) );
 
-    $dockerButtons = '<div class="btn-group btn-group-xs" role="group" aria-label="">
+    $dockerButtons = '<div class="btn-group btn-group-sm" role="group" aria-label="">
     <button type="button" class="btn btn-danger" onclick="javascript:EcidadeDocker(\'dockerStop\')">
      <i class="fa fa-stop"></i> Stop
      </button>
