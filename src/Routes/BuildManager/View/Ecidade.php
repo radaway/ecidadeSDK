@@ -34,7 +34,7 @@ class Ecidade{
           data: {ctrl: \'Ecidade\', method: Method },
           type: "POST",
           url: "' . $_SERVER['REQUEST_URI'] . '",
-          success: function (html) {
+          success: function(html) {
             $("#Ecidade_retorno").html(html);
   		      $("#Ecidade_retorno").delay(10000).fadeOut();
           }
@@ -43,7 +43,6 @@ class Ecidade{
       ';
 
     return $base . $table->print() . $script;
-
   }
 }
 ?>
