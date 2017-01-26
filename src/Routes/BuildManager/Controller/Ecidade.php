@@ -13,7 +13,7 @@ class Ecidade{
   private function dockerStop(){
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf' );
     $dockerPort = trim( $dockerPort );
-    try {      
+    try {
       Docker::stop( $dockerPort );
     } catch (Exception $e) {
       return $e->getMessage();
@@ -25,11 +25,11 @@ class Ecidade{
   private function dockerStart(){
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf');
     $dockerPort = trim( $dockerPort );
-    try {
-      Docker::start( 'apache_ecidade', '/var/www/builds/' . $this->buildName . '/builds/Ecidade', $dockerPort );
-    } catch (Exception $e) {
-      return $e->getMessage();
-    }
+    //try {
+      //Docker::start( 'apache_ecidade', '/var/www/builds/' . $this->buildName . '/builds/Ecidade', $dockerPort );
+    //} catch (Exception $e) {
+      //return $e->getMessage();
+    //}
     $msg = 'Serviço docker iniciado';
     return $msg;
   }
