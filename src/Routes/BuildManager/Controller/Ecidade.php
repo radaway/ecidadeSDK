@@ -18,6 +18,7 @@ class Ecidade{
         echo "bugou";
         break;
     }
+    echo "nenhum";
   }
 
   private function dockerStop(){
