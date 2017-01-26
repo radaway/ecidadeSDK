@@ -26,13 +26,13 @@ class Ecidade{
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf');
     $dockerPort = trim( $dockerPort );
     //try {
-      $docker = new Docker();
-      $docker->start( 'apache_ecidade', '/var/www/builds/' . $this->buildName . '/builds/Ecidade', $dockerPort );
+      //$docker = new Docker();
+      //$docker->start( 'apache_ecidade', '/var/www/builds/' . $this->buildName . '/builds/Ecidade', $dockerPort );
     //} catch (Exception $e) {
       //return $e->getMessage();
     //}
     $msg = 'Serviço docker iniciado';
-    return $msg;
+    return phpinfo();
   }
 }
 ?>
