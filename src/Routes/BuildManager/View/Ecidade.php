@@ -13,7 +13,7 @@ class Ecidade{
     $table = new SimpleTable( 'Table' );
     $table->addHead( array( 'Serviço', 'Acesso' ) );
     $table->addline( array( 'e-cidade', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '</a>' ) );
-    $table->addline( array( 'git', 'http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git' ) );
+    $table->addline( array( 'git', 'git clone http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git ' . $this->buildName ) );
     $table->addline( array( 'ssh', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh</a>' ) );
 
     $dockerButtons = '<button type="button" class="btn btn-danger" onclick="javascript:DockerStop(' . $dockerPort . ')">
