@@ -12,6 +12,7 @@ class Ecidade{
         break;
       case 'dockerStart':
         echo $this->dockerStart();
+        break;
       default:
         echo "bugou";
         break;
@@ -41,8 +42,5 @@ class Ecidade{
     }
     return 'Serviço docker iniciado';
   }
-
-
 }
-
 ?>
