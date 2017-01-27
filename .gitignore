@@ -3,3 +3,4 @@ src/Jenkins/config/config.php
 src/Smtp/config/config.php
 src/Ssh/config/config.php
 src/Jenkins/jenkins-cli.jar
+src/Docker/config/config.php

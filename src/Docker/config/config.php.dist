@@ -1,0 +1,8 @@
+<?php
+class DockerConfig extends stdClass{
+  public $socket = "";
+  public $user = "";
+  public $userEmail = "";
+  public $password = "";
+}
+?>

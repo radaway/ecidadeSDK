@@ -1,0 +1,103 @@
+<?php
+
+require_once __DIR__ . '/../config/config.php';
+
+class DockerRun{
+
+  private $config;
+  private $jsonPost;
+  private $image = null;
+  private $jsonPort = array();
+  private $jsonPortB = array();
+  private $jsonVol = array();
+  private $jsonCmd = array();
+  private $dns = array();
+  private $dnsSearch = null;
+  private $containerId = null;
+
+  public function __construct( $dockerImage ) {
+    $this->config = new DockerConfig();
+    $this->image = $dockerImage;
+  }
+
+  public function addCmd( $cmd = "/bin/bash" ){
+    $this->jsonCmd[] = $cmd ;
+  }
+
+  public function bindPort( $portOrig, $portDest, $trasp = "tcp" ){
+    $tmpArr[] = array( "HostPort" => $portOrig, "HostIP" => "0.0.0.0" );
+    $this->jsonPort[$portDest . "/" . $trasp] =  $tmpArr;
+    $this->jsonPortB = array( $portDest . "/" . $trasp => array( "HostPort" => $portOrig, "HostIP" => "0.0.0.0" ) );
+  }
+
+  public function addVolume( $volOrig, $volDest ){
+    $this->jsonVol[] = $volOrig . ":" . $volDest;
+  }
+
+  public function addDns( $dns ){
+    $this->dns[] = $dns;
+  }
+
+  public function addDnsSearch( $name ){
+    $this->dnsSearch[] = $name;
+  }
+
+  private function makeConfig(){
+    $this->jsonPost = array();
+    $this->jsonPost['Image'] = $this->image;
+    $this->jsonPost['Tty'] = true;
+    $this->jsonPost['AttachStdin'] = true;
+    $this->jsonPost['Cmd'] = $this->jsonCmd;
+    $this->jsonPost['ExposedPorts'] = $this->jsonPortB;
+    $tpmHostConfigjsonPost['Binds'] = $this->jsonVol;
+    $tpmHostConfigjsonPost['PortBinding'] = $this->jsonPort;
+    $tpmHostConfigjsonPost['Dns'] = $this->dns;
+    $tpmHostConfigjsonPost['DnsSearch'] = $this->dnsSearch;
+    $this->jsonPost['HostConfig'] = $tpmHostConfigjsonPost;
+  }
+
+  private function sendApi(){
+    $this->makeConfig();
+    $data_string = json_encode($this->jsonPost);
+    $ch = curl_init($this->config->socket . '/containers/create');
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      'Content-Type: application/json',
+      'Content-Length: ' . strlen($data_string) )
+    );
+    $result = curl_exec($ch);
+    print_r( json_decode( $result ) );
+    return $result;
+  }
+
+  private function startDocker(){
+    $contId = $this->sendApi();
+    $contId = json_decode( $contId );
+    $this->containerId = $contId->Id;
+    $url = $this->config->socket . '/containers/' . $contId->Id . '/start';
+    $data_string = json_encode( array( 'PortBinding' => $this->jsonPort ) );
+    print_r( $data_string );
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string );
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      'Content-Type: application/json',
+      'Content-Length: ' . strlen( $data_string ) )
+    );
+    $result = curl_exec($ch);
+    return $result;
+  }
+
+  public function dockerRun(){
+    $this->startDocker();
+    return $this->containerId;
+    //$this->makeConfig();
+    //print_r( json_encode( $this->jsonPost ) );
+  }
+
+}
+?>
