@@ -96,9 +96,7 @@ class DockerRun{
 
   public function dockerRun(){
     $this->startDocker();
-    return $this->containerId;
-    //$this->makeConfig();
-    //print_r( json_encode( $this->jsonPost ) );
+    return $this->containerId;    
   }
 
 }
