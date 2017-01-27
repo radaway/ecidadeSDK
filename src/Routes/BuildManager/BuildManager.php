@@ -3,13 +3,13 @@
 class BuildManager{
 
   public function __construct( $buildName ){
-    if (isset( $_POST['view'] )){
+    if ( isset( $_POST['view'] )){
       if ( is_file( __DIR__ . "/View/" . $_POST['view'] .".php" ) ){
         require_once __DIR__ . "/View/" . $_POST['view'] .".php";
         return new $_POST['view']( $buildName,  $_POST['method'] );
       }
     }
-    if (isset( $_POST['ctrl'] )){
+    if ( isset( $_POST['ctrl'] )){
       if ( is_file( __DIR__ . "/Controller/" . $_POST['ctrl'] .".php" ) ){
         require_once __DIR__ . "/Controller/" . $_POST['ctrl'] .".php";
         return new $_POST['ctrl']( $buildName, $_POST['method'] );

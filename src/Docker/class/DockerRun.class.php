@@ -59,8 +59,7 @@ class DockerRun{
 
   private function sendApi(){
     $this->makeConfig();
-    $data_string = json_encode($this->jsonPost);
-    print_r( $data_string );
+    $data_string = json_encode($this->jsonPost);    
     $ch = curl_init($this->config->socket . '/containers/create');
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -96,7 +95,7 @@ class DockerRun{
 
   public function dockerRun(){
     $this->startDocker();
-    return $this->containerId;    
+    return $this->containerId;
   }
 
 }

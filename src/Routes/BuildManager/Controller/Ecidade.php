@@ -25,7 +25,7 @@ class Ecidade{
     $docker->addCmd( "/root/scripts/start.sh" );
     $doc_id = $docker->dockerRun();
     $msg = 'Serviço docker iniciado ' . $doc_id;
-    return phpinfo();
+    return $msg;
   }
 }
 ?>
