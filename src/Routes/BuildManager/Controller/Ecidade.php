@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../Docker/class/DockerRun.class.php';
-
+require_once __DIR__ . '/../../../Docker/class/DockerList.class.php';
+require_once __DIR__ . '/../../../Docker/class/DockerStop.class.php';
 class Ecidade{
 
   private $buildName;
@@ -11,6 +12,17 @@ class Ecidade{
   }
 
   private function dockerStop(){
+    $dockerL = new DockerList();
+    $dockerId = $dockerL->getDockerByDir( '/var/www/builds/' . $this->buildName . '/builds/Ecidade' );
+    if ( $dockerId != null ){
+      return true;
+    }
+
+    $dockerS = new DockerStop();
+    $dockerS->killById( $dockerId );
+    $dockerS->deleteById( $dockerId );
+    $msg = "Serviço parado";
+    return $msg;
   }
 
   private function dockerStart(){

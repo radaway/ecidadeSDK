@@ -1,7 +1,5 @@
 <?php
-
 require_once __DIR__ . '/../config/config.php';
-
 class DockerRun{
 
   private $config;
@@ -59,7 +57,7 @@ class DockerRun{
 
   private function sendApi(){
     $this->makeConfig();
-    $data_string = json_encode($this->jsonPost);    
+    $data_string = json_encode($this->jsonPost);
     $ch = curl_init($this->config->socket . '/containers/create');
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -69,7 +67,6 @@ class DockerRun{
       'Content-Length: ' . strlen($data_string) )
     );
     $result = curl_exec($ch);
-    print_r( json_decode( $result ) );
     return $result;
   }
 
@@ -78,9 +75,6 @@ class DockerRun{
     $contId = json_decode( $contId );
     $this->containerId = $contId->Id;
     $jsonStart = array();
-    //$jsonStart['Id'] =  $this->containerId;
-    //$jsonStart['PortBindings'] = $this->jsonPort;
-    //$data_string = json_encode($jsonStart);
     $url = $this->config->socket . '/containers/' . $contId->Id . '/start';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -97,6 +91,5 @@ class DockerRun{
     $this->startDocker();
     return $this->containerId;
   }
-
 }
 ?>
