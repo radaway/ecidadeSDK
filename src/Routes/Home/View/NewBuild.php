@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../Html/Form.class.php';
-require_once __DIR__ . '/../../../Html/SimpeTable.class.php';
+require_once __DIR__ . '/../../../Html/SimpleTable.class.php';
 require_once __DIR__ . '/../../../GitLab/class/Groups.class.php';
 require_once __DIR__ . '/../../../Jenkins/class/Jobs.class.php';
 
