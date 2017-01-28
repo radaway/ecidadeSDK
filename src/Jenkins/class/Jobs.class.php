@@ -32,9 +32,28 @@ class Jobs{
     if ( ! exec($cmd, $out, $erro) ){
       if ( $erro > 0 ){
           throw new Exception("Falha na requisição", 1);
-      }      
+      }
     }
     return true;
   }
+
+  function getJobs(){
+    $Config = new JenkinsConfig();
+    $job_output = array();
+    $job_url = 'http://' . $Config->JenkinsHost . '/job/' .  $this->JobName . '/api/json';
+    $job_content = json_decode( file_get_contents( $job_url ) );
+    foreach ( $job_content->builds as $build ) {
+      $build_url = $build->url . 'api/json?depth=2';
+      $build_content = json_decode( file_get_contents( $build_url ) );
+
+      $param = new stdClass();
+      foreach ($build_content->actions as $action) {
+        $param->$action->name = $param->value;
+      }
+      $job_output[$build->number] = $param;
+    }
+    return $job_output;
+  }
+
 }
 ?>

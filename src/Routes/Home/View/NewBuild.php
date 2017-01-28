@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/../../../Html/Form.class.php';
+require_once __DIR__ . '/../../../Html/SimpeTable.class.php';
 require_once __DIR__ . '/../../../GitLab/class/Groups.class.php';
+require_once __DIR__ . '/../../../Jenkins/class/Jobs.class.php';
 
 class NewBuild{
 
   public function __construct( $func ){
-    echo $this->$func();    
+    echo $this->$func();
   }
 
   private function new(){
@@ -23,6 +25,15 @@ class NewBuild{
     $Form->addText( "nome", "Nome" );
     $Form->addSubmit( "Gerar", "NewBuild", "NewBuild" );
     $retorno = $Form->print();
+
+    $table = new SimpleTable( 'Builds' );
+    $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto' ) );
+    $job = new Jobs( "nova_build" );
+    foreach ($job->getJobs() as $value) {
+      $table->addLine( array( $value->NOME, $value->GRUPO, $value->PROJETO ) );
+    }
+    $retorno .= $table->print();
+
     $script = '<script type="text/javascript">
     $("#grupo").on("change",function() {
       if ($("#grupo").val() != "selecione") {
