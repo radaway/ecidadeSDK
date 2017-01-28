@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../Docker/class/DockerJsonCreate.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerRun.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerList.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerStop.class.php';
@@ -12,31 +13,44 @@ class Ecidade{
   }
 
   private function dockerStop(){
-    $dockerL = new DockerList();
-    $dockerId = $dockerL->getDockerByDir( '/var/www/builds/' . $this->buildName . '/builds/Ecidade' );
-    if ( $dockerId != null ){
-      return true;
+    $msg = "Serviço docker encerrado!";
+    try {
+      $dockerL = new DockerList();
+      $dockerId = $dockerL->getDockerByDir( '/var/www/builds/' . $this->buildName . '/builds/Ecidade' );
+      if ( $dockerId == null ){
+        return $msg;
+      }
+      $dockerS = new DockerStop();
+      $dockerS->killById( $dockerId );
+      $dockerS->deleteById( $dockerId );
+    } catch (Exception $e) {
+      $msg  = "Falha ao encerrar docker!";
     }
-
-    $dockerS = new DockerStop();
-    $dockerS->killById( $dockerId );
-    $dockerS->deleteById( $dockerId );
-    $msg = "Serviço parado";
     return $msg;
   }
 
   private function dockerStart(){
+    $msg = 'Serviço docker iniciado!';
     $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/Ecidade_ports.conf');
     $dockerPort = trim( $dockerPort );
-    $docker = new DockerRun( "apache_ecidade" );
-    $docker->addVolume( '/var/www/builds/' . $this->buildName . '/builds/Ecidade', "/var/www/html" );
-    $docker->bindPort( $dockerPort, "80" );
-    $docker->addDns( "8.8.8.8" );
-    $docker->addDns( "8.8.4.4" );
-    $docker->addDnsSearch( "local" );
-    $docker->addCmd( "/root/scripts/start.sh" );
-    $doc_id = $docker->dockerRun();
-    $msg = 'Serviço docker iniciado ' . $doc_id;
+    if( $dockerPort == '' ){
+      $msg = 'Falha ao configurar porta do serviço!';
+      return $msg;
+    }
+    try {
+      $dockerJson = new DockerJsonCreate( "apache_ecidade" );
+      $dockerJson->addVolume( '/var/www/builds/' . $this->buildName . '/builds/Ecidade', "/var/www/html" );
+      $dockerJson->bindPort( $dockerPort, "80" );
+      $dockerJson->addDns( "8.8.8.8" );
+      $dockerJson->addDns( "8.8.4.4" );
+      $dockerJson->addDnsSearch( "local" );
+      $dockerJson->addCmd( "/root/scripts/start.sh" );
+      $docker = new DockerRun();
+      $dockerId = $docker->create( $dockerJson->getJson() );
+      $docker->start( $dockerId );
+    } catch (Exception $e) {
+      $msg = 'Falha ao inicializar serviço docker!';
+    }
     return $msg;
   }
 }

@@ -1,30 +1,32 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
-class DockerList{
+require_once __DIR__ . '/DockerRequest.php';
+class DockerList extends DockerRequest{
 
   private $config;
 
   public function __construct() {
-    $this->config = new DockerConfig();
   }
 
   public function getDockerByDir( $dir ){
-    $ch = curl_init($this->config->socket . '/containers/json');
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, null);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      'Content-Type: application/json' )
-    );
-    $result = curl_exec($ch);
+      $request = null;
+    try {
+      $request = $this->containerRequest( null, 'lits' );
+    } catch (Exception $e) {
+      throw new Exception("Falha ao listar containers", 1);
+    }
     $id = null;
-    foreach (json_decode( $result ) as $value) {
-      if( $value->Mounts[0]->Source == $dir ){
-        $id = $value->Id;
-        break;
+    foreach ( $request as $docker ) {
+      foreach ( $docker->Mounts as $mnt ) {
+        if( $mnt->Source == $dir ){
+          return $docker->Id;
+        }
       }
     }
     return $id;
   }
+
+
+
 }
 ?>
