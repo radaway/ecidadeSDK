@@ -46,14 +46,15 @@ class Jobs{
       $build_url = $build->url . 'api/json?depth=2';
       $build_content = json_decode( file_get_contents( $build_url ) );
 
-
       foreach ($build_content->actions as $action) {
-        $job_param = new stdClass();
-        foreach ($action->parameters as $param) {
-          $job_param->$param->name = $param->value;
+        if (isset($action->parameters) && count($action->parameters)) {
+          $job_param = new stdClass();
+          foreach ($action->parameters as $param) {
+            $job_param->$param->name = $param->value;
+          }
+          $job_output[$build->number] = $job_param;
         }
-      }
-      $job_output[$build->number] = $job_param;
+      }      
     }
     return $job_output;
   }
