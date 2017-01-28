@@ -52,7 +52,7 @@ class Jobs{
           foreach ($action->parameters as $param) {
             $job_param[$param->name] = $param->value;
           }
-          $job_output[$build->number] = $job_param;
+          $job_output[$build->number]['params'] = $job_param;
         }
       }
 
