@@ -29,8 +29,8 @@ class NewBuild{
     $table = new SimpleTable( 'Builds' );
     $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto' ) );
     $job = new Jobs( "nova_build" );
-    foreach ($job->getJobs() as $value) {
-      $table->addLine( array( $value->NOME, $value->GRUPO, $value->PROJETO ) );
+    foreach ($job->getJobs() as $key => $value) {
+      $table->addLine( array( $key, $value->NOME, $value->GRUPO, $value->PROJETO ) );
     }
     $retorno .= $table->print();
 
