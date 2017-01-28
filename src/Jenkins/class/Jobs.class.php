@@ -48,7 +48,7 @@ class Jobs{
 
       $param = new stdClass();
       foreach ($build_content->actions as $action) {
-        $param->$action->name = $param->value;
+        $param->$action->name = $action->value;
       }
       $job_output[$build->number] = $param;
     }
