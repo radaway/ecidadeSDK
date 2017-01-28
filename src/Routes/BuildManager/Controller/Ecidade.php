@@ -49,7 +49,7 @@ class Ecidade{
       $dockerId = $docker->create( $dockerJson->getJson() );
       $docker->start( $dockerId );
     } catch (Exception $e) {
-      $msg = 'Falha ao inicializar serviço docker!';
+      $msg = 'Falha ao inicializar serviço docker!' . $e->getMessage();
     }
     return $msg;
   }
