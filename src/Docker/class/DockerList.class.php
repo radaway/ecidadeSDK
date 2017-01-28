@@ -13,7 +13,7 @@ class DockerList extends DockerRequest{
     try {
       $request = $this->containerRequest( null, 'lits' );
     } catch (Exception $e) {
-      throw new Exception("Falha ao listar containers", 1);
+      throw new Exception("Falha ao listar containers" . $e->getMessage(), 1);
     }
     $id = null;
     foreach ( $request as $docker ) {
