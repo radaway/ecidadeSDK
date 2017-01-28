@@ -30,8 +30,7 @@ class NewBuild{
     $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto' ) );
     $job = new Jobs( "nova_build" );
     foreach ($job->getJobs() as $key => $value) {
-      $table->addLine( array( $key, $value['NOME'], $value['GRUPO'], $value['PROJETO'] ) );
-      print_r( $value );
+      $table->addLine( array( $key, $value['NOME'], $value['GRUPO'], $value['PROJETO'] ) );      
     }
     $retorno .= $table->print();
 
