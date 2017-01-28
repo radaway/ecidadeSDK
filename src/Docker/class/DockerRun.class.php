@@ -6,7 +6,7 @@ class DockerRun extends DockerRequest{
     try {
       $result = $this->containerRequest( null, 'create', $dockerJson );
     } catch (Exception $e) {
-      throw new Exception("Falha ao finalizar o docker " . $idC, 1);
+      throw new Exception("Falha ao finalizar o docker " . $e->getMessage(), 1);
     }
     return $result->Id;
   }
