@@ -15,7 +15,7 @@ class DockerRun extends DockerRequest{
     try {
       $result = $this->containerRequest( $idC, 'start' );
     } catch (Exception $e) {
-      throw new Exception("Falha ao inicializar o docker " . $idC, 1);
+      throw new Exception("Falha ao inicializar o docker " . $e->getMessage() . $idC, 1);
     }
     return $result;
   }
