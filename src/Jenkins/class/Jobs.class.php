@@ -48,14 +48,15 @@ class Jobs{
 
       foreach ($build_content->actions as $action) {
         if (isset($action->parameters) && count($action->parameters)) {
-          $job_param = array();
+          $job_param = new stdClass();
           foreach ($action->parameters as $param) {
-            $job_param[$param->name] = $param->value;
+            print_r( $param );
+            $job_param->$param->name = $param->value;
           }
-
+          $job_output[$build->number] = $job_param;
         }
       }
-      $job_output[$build->number] = new stdClass($job_param);
+
     }
     return $job_output;
   }
