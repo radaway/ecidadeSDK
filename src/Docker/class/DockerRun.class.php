@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/DockerRequest.class.php';
 class DockerRun extends DockerRequest{
-  private function create( $dockerJson ){
+  public function create( $dockerJson ){
     try {
       $result = $this->containerRequest( null, 'create', $dockerJson );
     } catch (Exception $e) {
@@ -11,7 +11,7 @@ class DockerRun extends DockerRequest{
     return $result->Id;
   }
 
-  private function start( $idC ){
+  public function start( $idC ){
     try {
       $result = $this->containerRequest( $idC, 'start' );
     } catch (Exception $e) {
