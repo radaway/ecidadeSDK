@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/DockerRequest.php';
+require_once __DIR__ . '/DockerRequest.class.php';
 class DockerStop extends DockerRequest{
   public function stopById( $idC ){
     $result = null;
@@ -10,7 +10,7 @@ class DockerStop extends DockerRequest{
       throw new Exception("Falha ao parar o docker " . $idC, 1);
     }
     return $result;
-  }  
+  }
   public function killById( $idC ){
     $result = null;
     try {

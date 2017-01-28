@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/DockerRequest.php';
+require_once __DIR__ . '/DockerRequest.class.php';
 class DockerList extends DockerRequest{
 
   private $config;

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/DockerRequest.php';
-require_once __DIR__ . '/DockerJsonCreate.php';
+require_once __DIR__ . '/DockerRequest.class.php';
+require_once __DIR__ . '/DockerJsonCreate.class.php';
 class DockerRun extends DockerRequest{
 
   private $image = null;
