@@ -11,7 +11,7 @@ class DockerList extends DockerRequest{
   public function getDockerByDir( $dir ){
       $request = null;
     try {
-      $request = $this->containerRequest( null, 'lits' );
+      $request = $this->containerRequest( null, 'list' );
     } catch (Exception $e) {
       throw new Exception("Falha ao listar containers" . $e->getMessage(), 1);
     }
