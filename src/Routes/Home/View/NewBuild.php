@@ -31,7 +31,7 @@ class NewBuild{
     $job = new Jobs( "nova_build" );
     foreach ($job->getJobs() as $key => $value) {
       $table->addLine( array( $key, $value->nome, $value->grupo, $value->projeto ) );
-      prin_r( $value );
+      print_r( $value );
     }
     $retorno .= $table->print();
 
