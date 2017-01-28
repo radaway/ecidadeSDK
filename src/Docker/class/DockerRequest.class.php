@@ -53,7 +53,7 @@ class DockerRequest{
         $this->configKill( $idC );
         break;
       case 'delete':
-        $this-configDelete( $idC );
+        $this->configDelete( $idC );
         break;
       case 'stop':
         $this->configStop( $idC );
