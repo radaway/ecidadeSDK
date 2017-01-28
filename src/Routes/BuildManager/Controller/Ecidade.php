@@ -24,7 +24,7 @@ class Ecidade{
       $dockerS->killById( $dockerId );
       $dockerS->deleteById( $dockerId );
     } catch (Exception $e) {
-      $msg  = "Falha ao encerrar docker!";
+      $msg  = "Falha ao encerrar docker!" . $e->getMessage();
     }
     return $msg;
   }
