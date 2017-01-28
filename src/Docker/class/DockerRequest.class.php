@@ -5,7 +5,7 @@ class DockerRequest{
 
   private $method;
   private $route;
-  private $config;
+  public $config;
 
   public function __construct(){
     $this->config = new DockerConfig();
