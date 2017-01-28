@@ -83,7 +83,7 @@ class DockerRequest{
       curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
       $result = curl_exec($curl);
       $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-      if( $httpCode != 200 ){
+      if( $httpCode != 201 ){
         throw new Exception("Resposta inválida!" . $result . '|' . $httpCode , 1);
       }
     } catch (Exception $e) {
