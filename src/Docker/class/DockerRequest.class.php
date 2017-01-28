@@ -81,9 +81,9 @@ class DockerRequest{
       curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-      $result = curl_exec($curl);
+      $result = curl_exec( $curl );
       $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-      if( $httpCode != 201 ){
+      if( $this->method != 'GET' && $httpCode != 201 ){
         throw new Exception("Resposta inválida!" . $result . '|' . $httpCode , 1);
       }
     } catch (Exception $e) {
