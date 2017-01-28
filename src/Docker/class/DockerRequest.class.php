@@ -3,9 +3,9 @@ require_once __DIR__ . '/../config/config.php';
 
 class DockerRequest{
 
-  protected $method;
-  protected $route;
-  protected $config;
+  private $method;
+  private $route;
+  private $config;
 
   public function __construct(){
     $this->config = new DockerConfig();
@@ -72,7 +72,7 @@ class DockerRequest{
   public function containerRequest( $idC = null, $action = null,  $jsonData = null ){
     $header = array();
     $header[] = 'Content-Type: application/json';
-    if( $jsonData != null ){      
+    if( $jsonData != null ){
       $header[] = 'Content-Length: ' . strlen($jsonData);
     }
     try {
