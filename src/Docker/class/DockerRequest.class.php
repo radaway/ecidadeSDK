@@ -5,41 +5,39 @@ class DockerRequest{
 
   private $method;
   private $route;
-  public $config;
 
   public function __construct(){
-    $this->config = new DockerConfig();
     $this->method = 'GET';
-    $this->route = $this->config->socket . '/containers/json';
+    $this->route = null;
   }
 
   protected function configStop( $idC ){
     if ( $idC == null ){ throw new Exception("Não informou id", 1); }
     $this->method = 'POST';
-    $this->route = $this->config->socket . '/containers/' . $idC . '/stop';
+    $this->route = '/containers/' . $idC . '/stop';
   }
   protected function configStart( $idC ){
     if ( $idC == null ){ throw new Exception("Não informou id", 1); }
     $this->method = 'POST';
-    $this->route = $this->config->socket . '/containers/' . $idC . '/start';
+    $this->route = '/containers/' . $idC . '/start';
   }
   protected function configCreate(){
     $this->method = 'POST';
-    $this->route = $this->config->socket . '/containers/create';
+    $this->route = '/containers/create';
   }
   protected function configKill( $idC ){
     if ( $idC == null ){ throw new Exception("Não informou id", 1); }
     $this->method = 'POST';
-    $this->route = $this->config->socket . '/containers/' . $idC . '/kill';
+    $this->route = '/containers/' . $idC . '/kill';
   }
   protected function configDelete( $idC ){
     if ( $idC == null ){ throw new Exception("Não informou id", 1); }
     $this->method = 'DELETE';
-    $this->route = $this->config->socket . '/containers/' . $idC;
+    $this->route = '/containers/' . $idC;
   }
   protected function configlist(){
     $this->method = 'GET';
-    $this->route = $this->config->socket . '/containers/json';
+    $this->route = '/containers/json';
   }
 
 
@@ -76,8 +74,9 @@ class DockerRequest{
       $header[] = 'Content-Length: ' . strlen($jsonData);
     }
     try {
+      $config = new DockerConfig();
       $this->configRoute( $action, $idC );
-      $curl = curl_init( $this->route );
+      $curl = curl_init( $config->socket . $this->route );
       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
       curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
