@@ -55,9 +55,7 @@ class Jobs{
           $job_output[$build->number]['params'] = $job_param;
         }
       }
-      $job_output[$build->number]['status'] ?: "Gerando...";
-
-
+      $job_output[$build->number]['status'] = $build_content->result ?: "Gerando...";
     }
     return $job_output;
   }
