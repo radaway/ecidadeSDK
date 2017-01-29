@@ -17,7 +17,7 @@ public function getInfo( $folder ){
   $table = new SimpleTable( 'Table' );
   $table->addHead( array( 'Serviço', 'Acesso' ) );
   $table->addline( array( $folder, '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '</a>' ) );
-  $table->addline( array( 'git', 'git clone http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git ' . $this->buildName ) );
+  $table->addline( array( 'git', 'git clone http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_git ' . $this->buildName . '_' . $folder ) );
   $table->addline( array( 'ssh', '<a href="http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh" target="_blank">http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '/_ssh</a>' ) );
 
   $dockerButtons = '<div class="btn-group btn-group-sm" role="group" aria-label="">
