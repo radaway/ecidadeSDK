@@ -32,7 +32,7 @@ Class Home{
     <script type="text/javascript" src="js/bootstrap.js"></script>
   </head>
   <body>
-    <div style="width: 98%;" id="exibicao" align="center"></div>
+    <div style="width: 98%;" class="container" id="exibicao" align="center"></div>
     <script type="text/javascript">
       function LoadView(View, Method){
         $("#exibicao").html("<br /><div align=\"center\">Carregando!!!</div>");

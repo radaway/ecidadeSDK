@@ -19,7 +19,7 @@ Class HtmlForm{
 
   private function initForm(){
     if ( $this->Html != null ){return true;}
-    $this->Html = '<div class="container" align="center">
+    $this->Html = '<div class="row" align="center">
     <br /><div class="col-' . $this->Size . '">
     ';
     $this->Html .= '<div class="alert alert-info" id="return_html_' . $this->Name;
@@ -66,7 +66,7 @@ Class HtmlForm{
     ';
   }
 
-  public function addSubmit( $Value, $Controller, $Method){
+  public function addSubmit( $Value, $Controller, $Method, $success = ""){
     $this->Html .= $this->getDivBase();
     $this->Html .= '<div class="col-8">
     <button class="btn btn-secondary" type="button" onclick="javascript:formSubmit' . $this->Name . '( \'' . $Controller . '\', \'' . $Method . '\', this );">
@@ -86,6 +86,10 @@ function formSubmit' . $this->Name . '( Ctrl, Method, Button ){
 	     type: \'POST\',
 	     dataType: \'json\',
 	     success: function(data) {
+          if( ! data.erro ){
+            document.getElementById("form_' . $this->Name . '").reset();
+            ' . $success . '
+          }
 		      $("#return_html_' . $this->Name .'").html(data.msg);
 		      $("#return_html_' . $this->Name .'").delay(10000).fadeOut();
           $(Button).removeAttr("disabled","disabled");

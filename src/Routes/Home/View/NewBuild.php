@@ -23,23 +23,9 @@ class NewBuild{
     $Form->addSelect( "grupo", "Grupo de Projeto", $select );
     $Form->addSelect( "projeto", "Projeto", array( 'selecione'=>'Selecione' ) );
     $Form->addText( "nome", "Nome" );
-    $Form->addSubmit( "Gerar", "NewBuild", "NewBuild" );
+    $Form->addSubmit( "Gerar", "NewBuild", "NewBuild", "reloadBuildList();" );
     $retorno = $Form->print();
-
-    $table = new SimpleTable( 'Builds' );
-    $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto', 'Estado', 'Acesso' ) );
-    $job = new Jobs( "nova_build" );
-    foreach ($job->getJobs() as $key => $value) {
-      $table->addCollum( $key );
-      $table->addCollum( $value['params']['NOME'] );
-      $table->addCollum( $value['params']['GRUPO'] );
-      $table->addCollum( $value['params']['PROJETO'] );
-      $table->addCollum( $value['status'] );
-      $table->addButton( '', 'external-link', 'window.open(\'build/' . $value['params']['NOME'] .'\',\'_blank\')' );
-      $table->addLine();
-    }
-    $retorno .= $table->print();
-
+    $retorno .= '<div id="buildList">' . $this->buildList() . '</div>';
     $script = '<script type="text/javascript">
     $("#grupo").on("change",function() {
       if ($("#grupo").val() != "selecione") {
@@ -60,8 +46,36 @@ class NewBuild{
         $("#projeto").html("<option value=\"selecione\">Selecione</option>");
       }
     });
-    </script>';
+    function reloadBuildList(){
+      $.ajax({
+        data: {view: "NewBuild", method: "buildList"},
+        type: "POST",
+        url: "' . $_SERVER['REQUEST_URI'] . '",
+        success: function(html){
+           $("#buildList").html(html);
+        }
+      });
+    }
+    </script>
+    ';
     return $retorno . $script;
+  }
+
+  public function buildList(){
+    $table = new SimpleTable( 'Builds' );
+    $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto', 'Estado', 'Acesso', 'Log' ) );
+    $job = new Jobs( "nova_build" );
+    foreach ($job->getJobs() as $key => $value) {
+      $table->addCollum( $key );
+      $table->addCollum( $value['params']['NOME'] );
+      $table->addCollum( $value['params']['GRUPO'] );
+      $table->addCollum( $value['params']['PROJETO'] );
+      $table->addCollum( $value['status'] );
+      $table->addButton( '', 'external-link', 'window.open(\'build/' . $value['params']['NOME'] .'\',\'_blank\')' );
+      $table->addButton( '', 'file-text-o', 'window.open(\'' . $value['url'] .'console\',\'_blank\')' );
+      $table->addLine();
+    }
+    return $table->print();
   }
 
 }
