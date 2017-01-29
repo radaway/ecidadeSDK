@@ -26,6 +26,9 @@ class BuildInfo{
         if ( ! is_dir( '/var/www/builds/' . $BuildName . '/builds/' . $value ) ){
           continue;
         }
+        if( is_file( '/var/www/builds/' . $BuildName . '/builds/' . $value . '_lock') ){
+          continue;
+        }
         $html .= '<div class="card card-default">
         <div class="card-header">
         ';

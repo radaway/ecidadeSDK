@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/InfoDefault.php';
 class EcidadeOnline2{
   private $buildName;
   public function __construct( $buildName, $Method  ){
@@ -8,8 +8,8 @@ class EcidadeOnline2{
   }
 
   private function getInfo(){
-    $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/EcidadeOnline2_ports.conf');
-    return '<br/>http://' . $_SERVER['SERVER_NAME'] . ':' . $dockerPort . '<br/>';
+    $info = new InfoDefault();
+    return $info->getInfo( "EcidadeOnline2" );
   }
 
 }
