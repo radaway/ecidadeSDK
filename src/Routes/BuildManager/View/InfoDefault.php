@@ -2,6 +2,12 @@
 require_once __DIR__ . '/../../../Html/SimpleTable.class.php';
 class InfoDefault{
 
+private $buildName;
+
+public function __construct( $buildName ){
+  $this->buildName = $buildName;
+}
+
 public function getInfo( $folder ){
   $dockerPort = file_get_contents( '/var/www/builds/' . $this->buildName . '/builds/' . $folder . '_ports.conf');
   $dockerPort = trim( $dockerPort );

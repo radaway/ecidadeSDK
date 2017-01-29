@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../../../Html/SimpleTable.class.php';
 require_once __DIR__ . '/InfoDefault.php';
 class Ecidade{
   private $buildName;
@@ -9,7 +8,7 @@ class Ecidade{
   }
 
   private function getInfo(){
-    $info = new InfoDefault();
+    $info = new InfoDefault($this->buildName);
     return $info->getInfo( "Ecidade" );
   }
 }

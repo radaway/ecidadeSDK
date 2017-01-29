@@ -8,7 +8,7 @@ class EcidadeOnline2{
   }
 
   private function getInfo(){
-    $info = new InfoDefault();
+    $info = new InfoDefault( $this->buildName );
     return $info->getInfo( "EcidadeOnline2" );
   }
 
