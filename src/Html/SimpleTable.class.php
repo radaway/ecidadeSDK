@@ -9,7 +9,7 @@ class SimpleTable{
   public function __construct( $name ){
     $this->line = array();
     $this->name = $name;
-    $this->html = '<br /><div class="row">
+    $this->html = '<br /><div align="center">
   <table class="table">';
   }
 
