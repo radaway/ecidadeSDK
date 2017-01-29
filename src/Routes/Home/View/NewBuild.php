@@ -78,7 +78,7 @@ class NewBuild{
         case 'FAILURE':
           $estado = 'Falhou';
           break;
-        case 'FAILURE':
+        case 'BUILDING':
           $estado = 'Gerando';
           break;
       }
