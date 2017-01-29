@@ -13,7 +13,7 @@ class ListBuild{
     $table->addHead( array( 'Build', 'Acessar' ) );
     $lsDir = array_diff( scandir( '/var/www/builds' ), array( '.', '..' ) );
     foreach ( $lsDir as $value ) {
-      $button = '<button type="button" class="btn btn-default btn-xs" onclick="javascript:openTab(\'build/' . $value . '\')">
+      $button = '<button type="button" class="btn btn-default btn-sm" onclick="javascript:openTab(\'build/' . $value . '\')">
 				<span class="fa fa-external-link"></span> ' . $value . ' </button>';
       $table->addLine( array( $value, $button ) );
     }

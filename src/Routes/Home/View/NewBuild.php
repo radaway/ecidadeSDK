@@ -27,10 +27,16 @@ class NewBuild{
     $retorno = $Form->print();
 
     $table = new SimpleTable( 'Builds' );
-    $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto', 'Estado' ) );
+    $table->addHead( array( 'Id', 'Nome', 'Grupo', 'Projeto', 'Estado', 'Acesso' ) );
     $job = new Jobs( "nova_build" );
     foreach ($job->getJobs() as $key => $value) {
-      $table->addLine( array( $key, $value['params']['NOME'], $value['params']['GRUPO'], $value['params']['PROJETO'], $value['status'] ) );      
+      $table->addCollum( $key );
+      $table->addCollum( $value['params']['NOME'] );
+      $table->addCollum( $value['params']['GRUPO'] );
+      $table->addCollum( $value['params']['PROJETO'] );
+      $table->addCollum( $value['status'] );
+      $table->addButton( '', 'external-link', 'window.open(\'build/' . $value['params']['NOME'] .'\',\'_blank\')' );
+      $table->addLine();
     }
     $retorno .= $table->print();
 

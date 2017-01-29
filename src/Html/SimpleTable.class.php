@@ -4,9 +4,10 @@ class SimpleTable{
 
   private $name;
   private $html;
+  private $line;
 
   public function __construct( $name ){
-
+    $this->line = array();
     $this->name = $name;
     $this->html = '<div class="table-responsive">
   <table class="table">';
@@ -22,8 +23,22 @@ class SimpleTable{
     </thead><tbody>';
   }
 
-  public function addLine( $line ){
+  public function addCollum( $col ){
+    $this->line[] = $col;
+  }
+
+  public function addButton( $value, $icon, $function ){
+    $col = '<button type="button" class="btn btn-default btn-sm" onclick="' . $function .  '">
+      <span class="fa fa-' . $icon . '"></span> ' . $value . ' </button>';
+    $this->line[] = $col;
+  }
+
+  public function addLine( $line = array() ){
     $this->html .= '<tr>';
+    if( empty( $line ) ){
+      $line = $this->line;
+      $this->line = array();
+    }
     foreach ($line as $value) {
       $this->html .= '<td>' . $value . '</td>';
     }
