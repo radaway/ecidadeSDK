@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../../../Html/SimpleTable.class.php';
 class InfoDefault{
 
 public function getInfo( $folder ){
