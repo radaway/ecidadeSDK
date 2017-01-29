@@ -17,7 +17,7 @@ class BuildInfo{
 
 
     private function info( $BuildName ){
-      $html = '<div align="center">
+      $html = '<div class="row" align="center">
       <br /><div class="col-' . $this->Size . '">
       ';
 
