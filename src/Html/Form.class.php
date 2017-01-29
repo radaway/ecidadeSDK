@@ -120,6 +120,33 @@ function formSubmit' . $this->Name . '( Ctrl, Method, Button ){
     ';
   }
 
+  public function addHeadButton( $Titulo, $Value, $Icon, $Action ){
+    if ( $this->Html != null ){return true;}
+    $this->Head = true;
+    $this->Html = '<div class="container" align="center">
+    <br /><div class="col-' . $this->Size . '">
+    ';
+
+    $this->Html .= '<div class="card card-default">
+    <div class="card-header">
+    ';
+    $this->Html .= '<strong>' . $Titulo . '</strong>';
+    $this->Html .= '<div class="btn-group pull-right">
+    <div class="btn-group">
+    <button type="button" class="btn btn-default btn-sm" onclick="' . $Action .  '">
+      <span class="fa fa-' . $Icon . '"></span> ' . $Value . ' </button>
+    </div>
+    </div>';
+    $this->Html .= '</div>
+    <div class="card-body">
+    ';
+    $this->Html .= '<br /><div class="alert alert-info" id="return_html_' . $this->Name;
+    $this->Html .= '" style="display: none;"></div>
+    ';
+    $this->Html .= '<form name="' . $this->Name . '" id="form_' . $this->Name . '">
+    ';
+  }
+
   public function addText( $Name, $Label ){
     $this->initForm();
     $this->Html .= $this->getDivBase();

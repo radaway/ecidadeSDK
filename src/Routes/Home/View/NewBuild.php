@@ -19,7 +19,7 @@ class NewBuild{
     }
 
     $Form = new HtmlForm('Build');
-    $Form->addHead( "Nova Build" );
+    $Form->addHeadButton( "Nova Build", 'Builds', 'external-link', 'window.open(\'build\', \'_self\')' );
     $Form->addSelect( "grupo", "Grupo de Projeto", $select );
     $Form->addSelect( "projeto", "Projeto", array( 'selecione'=>'Selecione' ) );
     $Form->addText( "nome", "Nome" );
@@ -70,7 +70,19 @@ class NewBuild{
       $table->addCollum( $value['params']['NOME'] );
       $table->addCollum( $value['params']['GRUPO'] );
       $table->addCollum( $value['params']['PROJETO'] );
-      $table->addCollum( $value['status'] );
+      $estado = "";
+      switch ($value['status']) {
+        case 'SUCCESS':
+          $estado = 'Concluído';
+          break;
+        case 'FAILURE':
+          $estado = 'Falhou';
+          break;
+        case 'FAILURE':
+          $estado = 'Gerando';
+          break;
+      }
+      $table->addCollum( $estado );
       $table->addButton( '', 'external-link', 'window.open(\'build/' . $value['params']['NOME'] .'\',\'_blank\')' );
       $table->addButton( '', 'file-text-o', 'window.open(\'' . $value['url'] .'console\',\'_blank\')' );
       $table->addLine();
