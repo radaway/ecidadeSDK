@@ -71,7 +71,7 @@ class NewBuild{
       $table->addCollum( $value['params']['GRUPO'] );
       $table->addCollum( $value['params']['PROJETO'] );
       $estado = "";
-      switch ($value['status']) {
+      switch ( $value['status'] ) {
         case 'SUCCESS':
           $estado = 'Concluído';
           break;
