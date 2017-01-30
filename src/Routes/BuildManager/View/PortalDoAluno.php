@@ -11,4 +11,5 @@ class PortalDoAluno{
     return $info->getInfo( "PortalDoAluno" );
   }
 }
+
 ?>
