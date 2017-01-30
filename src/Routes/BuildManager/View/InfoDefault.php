@@ -30,15 +30,15 @@ public function getInfo( $folder ){
     $table->addline( array( 'docker', $dockerButtons ) );
     $script = '<script type="text/javascript">
     function ' . $folder . 'Docker( Method ){
-      $("#Ecidade_retorno").html(\'Carregando...\');
-      $("#Ecidade_retorno").removeAttr("style", "display:none;").fadeIn();
+      $("#' . $folder . '_retorno").html(\'Carregando...\');
+      $("#' . $folder . '_retorno").removeAttr("style", "display:none;").fadeIn();
       $.ajax({
         data: {ctrl: \'' . $folder . '\', method: Method },
         type: "POST",
         url: "' . $_SERVER['REQUEST_URI'] . '",
         success: function(html) {
-          $("#Ecidade_retorno").html(html);
-          $("#Ecidade_retorno").delay(10000).fadeOut();
+          $("#' . $folder . '_retorno").html(html);
+          $("#' . $folder . '_retorno").delay(10000).fadeOut();
         }
       });
     }
