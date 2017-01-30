@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/InfoDefault.php';
-class EcidadeOnline2{
+class MatriculaOnline{
   private $buildName;
   public function __construct( $buildName, $Method  ){
     $this->buildName = $buildName;
@@ -8,7 +8,7 @@ class EcidadeOnline2{
   }
   private function getInfo(){
     $info = new InfoDefault( $this->buildName );
-    return $info->getInfo( "EcidadeOnline2" );
+    return $info->getInfo( "MatriculaOnline" );
   }
 }
 ?>
