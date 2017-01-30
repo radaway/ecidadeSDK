@@ -22,8 +22,7 @@ class Ecidade{
       }
       $dockerS = new DockerStop();
       $dockerS->killById( $dockerId );
-      $dockerS->deleteById( $dockerId );
-      $dockerS->deleteAllStoped();      
+      $dockerS->deleteById( $dockerId );            
     } catch (Exception $e) {
       $msg  = "Falha ao encerrar docker!" . $e->getMessage();
     }
@@ -39,8 +38,6 @@ class Ecidade{
       return $msg;
     }
     try {
-      $dockerS = new DockerStop();
-      $dockerS->deleteAllStoped();
       $dockerL = new DockerList();
       $dockerId = $dockerL->getDockerByDir( '/var/www/builds/' . $this->buildName . '/builds/Ecidade' );
       if ( $dockerId != null ){
