@@ -29,5 +29,16 @@ class DockerStop extends DockerRequest{
     }
     return $result;
   }
+
+  public function deleteAllStoped(){
+    $result = null;
+    try {
+      $result = $this->containerRequest( null, 'prune' );
+    } catch (Exception $e) {
+      throw new Exception("Falha ao remover imagem " . $idC, 1);
+    }
+    return $result;
+  }
+
 }
 ?>

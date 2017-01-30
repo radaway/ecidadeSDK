@@ -39,6 +39,10 @@ class DockerRequest{
     $this->method = 'GET';
     $this->route = '/containers/json';
   }
+  protected function configPrune(){
+    $this->method = 'POST';
+    $this->route = '/containers/prune';
+  }
 
 
   private function configRoute( $action = null, $idC = null ){
@@ -60,6 +64,9 @@ class DockerRequest{
         break;
       case 'list':
         $this->configList();
+        break;
+      case 'prune':
+        $this->configPrune();
         break;
       default:
         throw new Exception("Rota inválida!", 1);

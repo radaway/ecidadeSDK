@@ -38,6 +38,14 @@ class Ecidade{
       return $msg;
     }
     try {
+      $dockerS = new DockerStop();
+      $dockerS->deleteAllStoped();
+      $dockerL = new DockerList();
+      $dockerId = $dockerL->getDockerByDir( '/var/www/builds/' . $this->buildName . '/builds/Ecidade' );
+      if ( $dockerId != null ){
+        $msg = "Docker já está em execução";
+        return $msg;
+      }
       $dockerJson = new DockerJsonCreate( "apache_ecidade" );
       $dockerJson->addVolume( '/var/www/builds/' . $this->buildName . '/builds/Ecidade', "/var/www/html" );
       $dockerJson->bindPort( $dockerPort, "80" );
