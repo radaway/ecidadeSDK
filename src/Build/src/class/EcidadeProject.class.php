@@ -3,6 +3,8 @@ require_once __DIR__ . '/../interface/Project.interface.php';
 require_once __DIR__ . '/FileTools.class.php';
 require_once __DIR__ . '/Bash.class.php';
 require_once __DIR__ . '/../../../GitLab/config/config.php';
+require_once __DIR__ . '/../../../Docker/class/DockerList.class.php';
+require_once __DIR__ . '/../../../Docker/class/DockerStop.class.php';
 Class EcidadeProject implements Project{
 
   const COMPOSER_BIN = "/usr/local/bin/composer";
@@ -13,6 +15,24 @@ Class EcidadeProject implements Project{
 
   function __construct( $Path ){
     $this->Path = $Path;
+    echo $this->dockerStop();
+  }
+
+  private function dockerStop(){
+    $msg = "Serviço docker encerrado!";
+    try {
+      $dockerL = new DockerList();
+      $dockerId = $dockerL->getDockerByDir( $this->Path );
+      if ( $dockerId == null ){
+        return $msg;
+      }
+      $dockerS = new DockerStop();
+      $dockerS->killById( $dockerId );
+      $dockerS->deleteById( $dockerId );
+    } catch (Exception $e) {
+      $msg  = "Falha ao encerrar docker!" . $e->getMessage();
+    }
+    return $msg;
   }
 
   private function distInitialize(){
