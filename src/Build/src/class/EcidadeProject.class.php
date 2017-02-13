@@ -93,7 +93,7 @@ Class EcidadeProject implements Project{
       chdir( $this->Path . "/extension" );
       FileTools::checkDir( $this->Path . "/extension/log" );
       exec( self::COMPOSER_BIN . " install --no-dev" );
-      echo "------------ INSTALANDO EXTENSÃO DESKTOP --------\n"
+      echo "------------ INSTALANDO EXTENSÃO DESKTOP --------\n";
       exec( "bin/modification/unpack package/v3-install/modifications/003.xml");
 	    exec( "bin/modification/install dbportal-v3-install-3" );
       exec( "bin/extension/pack Desktop" );
