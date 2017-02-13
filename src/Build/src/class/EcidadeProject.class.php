@@ -87,7 +87,7 @@ Class EcidadeProject implements Project{
       $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/e-cidade/" . $Versao.".git " . $this->Path;
       Bash::exec( $cmd );
 
-      $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/Plugins/extension.git " . $this->Path . "/extension";
+      $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/EcidadePlugins/extension.git " . $this->Path . "/extension";
       Bash::exec( $cmd );
       $cdir = getcwd();
       chdir( $this->Path . "/extension" );
