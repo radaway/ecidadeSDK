@@ -4,6 +4,8 @@ require_once __DIR__  . '/FileTools.class.php';
 require_once __DIR__  . '/Bash.class.php';
 require_once __DIR__ . '/../../../GitLab/config/config.php';
 require_once __DIR__ . '/../../../Smtp/config/config.php';
+require_once __DIR__ . '/../../../Docker/class/DockerList.class.php';
+require_once __DIR__ . '/../../../Docker/class/DockerStop.class.php';
 Class EcidadeOnline2Project implements Project{
 
   const COMPOSER_BIN = "/usr/local/bin/composer";
@@ -33,7 +35,7 @@ Class EcidadeOnline2Project implements Project{
       $msg  = "Falha ao encerrar docker!\n" . $e->getMessage();
     }
     return $msg;
-  }  
+  }
 
   private function distInitialize(){
     if ( ! copy( $this->Path . "/application/configs/application.ini.dist", $this->Path . "/application/configs/application.ini" ) ){
