@@ -61,8 +61,8 @@ Class EcidadeProject implements Project{
   }
 
   private function parseConfigDefault(){
-    FileTools::strReplace( $this->Path . "/libs/db_conn.php.dist", '$DB_VALIDA_REQUISITOS[ \s]*=[ \s].*;', '$DB_VALIDA_REQUISITOS = false;' );
-    FileTools::strReplace( $this->Path . "/libs/db_conn.php.dist", '$DB_NETSTAT[ \s]*=[ \s].*;', '$DB_NETSTAT = "netstat";\ninclude_once("/etc/dbseller/array_servidores.php");' );
+    FileTools::strReplace( $this->Path . "/libs/db_conn.php", '$DB_VALIDA_REQUISITOS[ \s]*=[ \s].*;', '$DB_VALIDA_REQUISITOS = false;' );
+    //FileTools::strReplace( $this->Path . "/libs/db_conn.php", '$DB_NETSTAT[ \s]*=[ \s].*;', '$DB_NETSTAT = "netstat";\ninclude_once("/etc/dbseller/array_servidores.php");' );
   }
 
   private function iniFolders(){
@@ -93,7 +93,7 @@ Class EcidadeProject implements Project{
       chdir( $this->Path . "/extension" );
       FileTools::checkDir( $this->Path . "/extension/log" );
       exec( self::COMPOSER_BIN . " install --no-dev" );
-
+      echo "------------ INSTALANDO EXTENSÃO DESKTOP --------\n"
       exec( "bin/modification/unpack package/v3-install/modifications/003.xml");
 	    exec( "bin/modification/install dbportal-v3-install-3" );
       exec( "bin/extension/pack Desktop" );
