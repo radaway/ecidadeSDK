@@ -19,7 +19,7 @@ Class EcidadeProject implements Project{
   }
 
   private function dockerStop(){
-    $msg = "Serviço docker encerrado!";
+    $msg = "Serviço docker encerrado!\n";
     try {
       $dockerL = new DockerList();
       $dockerId = $dockerL->getDockerByDir( $this->Path );
@@ -30,7 +30,7 @@ Class EcidadeProject implements Project{
       $dockerS->killById( $dockerId );
       $dockerS->deleteById( $dockerId );
     } catch (Exception $e) {
-      $msg  = "Falha ao encerrar docker!" . $e->getMessage();
+      $msg  = "Falha ao encerrar docker!\n" . $e->getMessage();
     }
     return $msg;
   }

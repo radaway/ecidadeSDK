@@ -13,6 +13,24 @@ Class MatriculaOnlineProject implements Project{
 
   function __construct( $Path ){
     $this->Path = $Path;
+    echo $this->dockerStop();
+  }
+
+  private function dockerStop(){
+    $msg = "Serviço docker encerrado!\n";
+    try {
+      $dockerL = new DockerList();
+      $dockerId = $dockerL->getDockerByDir( $this->Path );
+      if ( $dockerId == null ){
+        return $msg;
+      }
+      $dockerS = new DockerStop();
+      $dockerS->killById( $dockerId );
+      $dockerS->deleteById( $dockerId );
+    } catch (Exception $e) {
+      $msg  = "Falha ao encerrar docker!\n" . $e->getMessage();
+    }
+    return $msg;
   }
 
   public function buildVersion( $Versao ){
