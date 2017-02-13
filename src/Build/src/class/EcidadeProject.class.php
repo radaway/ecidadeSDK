@@ -91,6 +91,7 @@ Class EcidadeProject implements Project{
       Bash::exec( $cmd );
       $cdir = getcwd();
       chdir( $this->Path . "/extension" );
+      FileTools::checkDir( $this->Path . "/extension/log" );
       exec( self::COMPOSER_BIN . " install --no-dev" );
 
       exec( "bin/modification/unpack package/v3-install/modifications/003.xml");
