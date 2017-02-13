@@ -86,6 +86,21 @@ Class EcidadeProject implements Project{
       echo " ------------------ CLONANDO --------------------\n";
       $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/e-cidade/" . $Versao.".git " . $this->Path;
       Bash::exec( $cmd );
+
+      $cmd = self::GIT_BIN . " clone http://" . $Config->GitUser . ":" . $Config->GitKey . "@" . $Config->GitUrl . "/Plugins/extension.git " . $this->Path . "/extension";
+      Bash::exec( $cmd );
+      $cdir = getcwd();
+      chdir( $this->Path . "/extension" );
+      exec( self::COMPOSER_BIN . " install --no-dev" );
+
+      exec( "bin/modification/unpack package/v3-install/modifications/003.xml");
+	    exec( "bin/modification/install dbportal-v3-install-3" );
+      exec( "bin/extension/pack Desktop" );
+      exec( "bin/extension/unpack desktop-package.tar.gz" );
+      exec( "bin/extension/install Desktop" );
+
+      chdir( $cdir );
+
     } catch (Exception $e) {
       throw $e;
     }
