@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../../Docker/class/DockerJsonCreate.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerRun.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerList.class.php';
 require_once __DIR__ . '/../../../Docker/class/DockerStop.class.php';
+
 class Ecidade{
 
   private $buildName;
@@ -22,7 +23,7 @@ class Ecidade{
       }
       $dockerS = new DockerStop();
       $dockerS->killById( $dockerId );
-      $dockerS->deleteById( $dockerId );            
+      $dockerS->deleteById( $dockerId );
     } catch (Exception $e) {
       $msg  = "Falha ao encerrar docker!" . $e->getMessage();
     }
